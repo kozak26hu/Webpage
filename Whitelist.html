@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperHands (PHANDS) - Official Whitelist Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+            50% { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8), 0 0 25px rgba(59, 130, 246, 0.4); }
+            100% { text-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+        }
+        .animate-slideUp {
+            animation: slideUp 1s ease-out;
+        }
+        .official-bg {
+            background: linear-gradient(135deg, #0a1e3b, #1e40af, #60a5fa);
+            background-size: 200% 200%;
+            animation: metallicShine 5s ease-in-out infinite;
+        }
+        @keyframes metallicShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .card {
+            background: linear-gradient(145deg, rgba(17, 24, 39, 0.8), rgba(31, 41, 55, 0.8));
+            border: 1px solid rgba(96, 165, 250, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 0 15px rgba(59, 130, 246, 0.6);
+        }
+        .form-input {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+        }
+        .glow-text {
+            animation: glow 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    <header class="official-bg py-8 text-center">
+        <img src="https://i.ibb.co/jv6Yt1xS/paperhands-webpage.jpg" alt="PaperHands (PHANDS) Logo" class="w-24 h-24 md:w-32 md:h-32 mx-auto animate-slideUp" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-wide mt-4 glow-text">PaperHands (PHANDS) - Official Whitelist Registration</h1>
+        <p class="mt-2 text-md md:text-lg opacity-90">Secure your spot for exclusive PHANDS presale access</p>
+        <p class="text-sm opacity-70" id="lastUpdated">Last Updated: Loading...</p>
+    </header>
+
+    <nav class="bg-gray-800 py-3 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto flex justify-center space-x-8">
+            <a href="/index.html#home" class="text-blue-400 hover:text-blue-300 font-semibold">Home</a>
+            <a href="/index.html#roadmap" class="text-blue-400 hover:text-blue-300 font-semibold">Roadmap</a>
+            <a href="/index.html#connect" class="text-blue-400 hover:text-blue-300 font-semibold">Connect</a>
+            <a href="/whitelist.html" class="text-blue-400 hover:text-blue-300 font-semibold">Whitelist</a>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <section class="text-center py-10 animate-slideUp" id="whitelist-info">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-blue-300 glow-text">What is the Whitelist?</h2>
+            <p class="text-md md:text-lg mb-4 max-w-3xl mx-auto opacity-90">
+                In the fast-paced world of crypto, gaining early access can make all the difference — whether it’s a new token launch, NFT drop, or platform feature. This is where crypto whitelists come into play.
+            </p>
+            <p class="text-md md:text-lg mb-4 max-w-3xl mx-auto opacity-90">
+                Let’s break down what a crypto whitelist is, how it works, and why it matters in both the token and NFT spaces.
+            </p>
+            <h3 class="text-xl md:text-2xl font-semibold mt-6 mb-2 text-blue-200 glow-text">What Is a Crypto Whitelist?</h3>
+            <p class="text-md md:text-lg mb-4 max-w-3xl mx-auto opacity-90">
+                A crypto whitelist is a curated list of pre-approved participants who are granted access to specific events or features within the crypto ecosystem. This includes:
+            </p>
+            <ul class="list-disc list-inside max-w-2xl mx-auto text-md md:text-lg opacity-90 mb-4">
+                <li>Initial Coin Offerings (ICOs)</li>
+                <li>Initial Exchange Offerings (IEOs)</li>
+                <li>NFT pre-sales or minting events</li>
+                <li>Withdrawal address restrictions on exchanges</li>
+            </ul>
+            <p class="text-md md:text-lg mb-4 max-w-3xl mx-auto opacity-90">
+                Whitelisting is essentially a gatekeeping mechanism to ensure that only verified or selected users are allowed to participate in certain crypto activities.
+            </p>
+            <h3 class="text-xl md:text-2xl font-semibold mt-6 mb-2 text-blue-200 glow-text">Whitelisting in Token Sales (ICOs & IEOs)</h3>
+            <p class="text-md md:text-lg mb-4 max-w-3xl mx-auto opacity-90">
+                In the context of token launches, a whitelist is used to control who can participate in an ICO or IEO. Projects often open a “whitelisting window” before the actual sale, during which users can register and submit required KYC information.
+            </p>
+            <p class="text-md md:text-lg mb-4 max-w-3xl mx-auto opacity-90">
+                This process helps projects:
+            </p>
+            <ul class="list-disc list-inside max-w-2xl mx-auto text-md md:text-lg opacity-90 mb-4">
+                <li>Vet users for compliance</li>
+                <li>Prevent bots or malicious actors</li>
+                <li>Manage the number of participants</li>
+                <li>Offer early or exclusive access to trusted community members</li>
+            </ul>
+            <p class="text-md md:text-lg mb-4 max-w-3xl mx-auto opacity-90">
+                Being whitelisted in a token sale often means getting access to better pricing or guaranteed allocation before tokens go public. For PaperHands (PHANDS), the whitelist provides exclusive access to the Q4 2025 presale with a 2% max wallet limit, integration with PinkSale’s automatic liquidity pool (auto-LP), and a 20% APR staking opportunity.
+            </p>
+            <p class="text-sm mb-4 opacity-70">
+                Contract Address: <code class="bg-gray-800 px-2 py-1 rounded text-blue-300">0x11157Da1fC6dCfd58b50ed79082183b2c6176245</code><br>
+                Staking APR: 20% (coming soon)
+            </p>
+            <a href="https://pinksale.finance/launchpad" target="_blank" class="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-500 hover-lift">
+                Check Presale
+            </a>
+        </section>
+
+        <section class="py-10 animate-slideUp" id="whitelist-form">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 text-blue-300 glow-text">Whitelist Registration</h2>
+            <div class="max-w-2xl mx-auto card p-6 hover-lift">
+                <form id="whitelistForm" class="space-y-4">
+                    <div>
+                        <label for="walletAddress" class="block text-sm font-medium text-blue-200">Ethereum Address</label>
+                        <input type="text" id="walletAddress" name="walletAddress" placeholder="e.g. 0x1234...abcd" class="form-input w-full mt-1 p-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none" required>
+                    </div>
+                    <div>
+                        <label for="telegramHandle" class="block text-sm font-medium text-blue-200">Telegram Handle</label>
+                        <input type="text" id="telegramHandle" name="telegramHandle" placeholder="@username" class="form-input w-full mt-1 p-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none" required>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-500 hover-lift">
+                        Submit Registration
+                    </button>
+                </form>
+                <p class="mt-4 text-sm opacity-70">After registration, a digital signature via MetaMask will be requested for verification. You will receive a notification on our Telegram channel upon approval.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="official-bg py-6 text-center">
+        <p class="opacity-80">&copy; 2025 PaperHands (PHANDS). All rights reserved.</p>
+        <div class="mt-2">
+            <a href="https://t.me/phandsannouncement" class="text-blue-200 hover:text-blue-100 mx-2">Telegram</a>
+            <a href="https://discord.gg/paperhands" class="text-blue-200 hover:text-blue-100 mx-2">Discord</a>
+            <a href="https://x.com/OfficialPHANDS" class="text-blue-200 hover:text-blue-100 mx-2">X</a>
+        </div>
+    </footer>
+
+    <script>
+        // Set the last updated timestamp
+        document.getElementById('lastUpdated').textContent = `Last Updated: ${new Date().toLocaleString('en-GB', { timeZone: 'CET', hour12: false })} CEST`;
+
+        // Whitelist registration handling
+        document.getElementById('whitelistForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('Registration submitted:', new Date().toLocaleString('en-GB', { timeZone: 'CET', hour12: false }));
+
+            const walletAddress = document.getElementById('walletAddress').value;
+            const telegramHandle = document.getElementById('telegramHandle').value;
+
+            if (!window.ethereum || typeof window.ethereum.request !== 'function') {
+                console.log('MetaMask not found. Check:', window.ethereum, navigator.userAgent);
+                alert('Please install and enable MetaMask!');
+                window.open('https://metamask.io/download/', '_blank');
+                return;
+            }
+
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                if (accounts.length === 0) {
+                    alert('No account found in MetaMask. Please unlock or add an account.');
+                    return;
+                }
+
+                const userAddress = accounts[0];
+                if (userAddress.toLowerCase() !== walletAddress.toLowerCase()) {
+                    alert('The provided Ethereum address does not match your MetaMask account!');
+                    return;
+                }
+
+                const signature = await window.ethereum.request({
+                    method: 'personal_sign',
+                    params: [userAddress, `PHANDS Whitelist Application for ${telegramHandle}`]
+                });
+                console.log('Successful signature:', signature);
+
+                alert(`Registration successful!\nAddress: ${userAddress}\nTelegram: ${telegramHandle}\nSignature: ${signature}\nYou will be notified on our Telegram channel after verification.`);
+                // Backend call would be required here for actual registration
+                document.getElementById('whitelistForm').reset();
+            } catch (error) {
+                console.error('Error during registration:', error);
+                if (error.code === 4001) alert('You rejected the signature in MetaMask.');
+                else if (error.code === -32002) alert('Pending request. Please approve in MetaMask!');
+                else alert(`Error: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>

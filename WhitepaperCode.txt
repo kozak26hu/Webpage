@@ -1,0 +1,299 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{natbib}
+\usepackage{noto}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{\small PaperHands (\$PHANDS) Whitepaper}
+\fancyfoot[C]{\thepage}
+\lstset{
+    language=Solidity,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{purple}
+}
+
+\title{\textbf{PaperHands (\$PHANDS) Whitepaper}}
+\author{PaperHands Development Team}
+\date{October 09, 2025}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Huge \textbf{PaperHands (\$PHANDS) Whitepaper}\par}
+    \vspace{1cm}
+    {\Large Version: 1.0\par}
+    \vspace{0.5cm}
+    {\Large October 09, 2025\par}
+    \vspace{0.5cm}
+    {\large PaperHands Development Team\par}
+    \vspace{1cm}
+    {\normalsize
+        \textbf{Contract Address:} \small\url{https://etherscan.io/address/0x11157Da1fC6dCfd58b50ed79082183b2c6176245}\normalsize (Ethereum Mainnet)\par
+        \vspace{0.3cm}
+        \textbf{Contact:} \href{mailto:zsoltrasp74@gmail.com}{zsoltrasp74@gmail.com} | 
+        Website: \url{https://paperhands.io} (coming soon) | 
+        X: \url{https://x.com/OfficialPHANDS} | 
+        Telegram: \url{https://t.me/phandsannouncement}\par
+    }
+    \vspace{2cm}
+\end{titlepage}
+
+\chapter*{Changelog}
+\addcontentsline{toc}{chapter}{Changelog}
+\begin{itemize}
+    \item \textbf{Version 1.0} (October 09, 2025)
+    \begin{itemize}
+        \item Initial release of the PaperHands (\$PHANDS) whitepaper.
+    \end{itemize}
+    
+\end{itemize}
+
+\tableofcontents
+
+\chapter{Executive Summary}
+PaperHands (\$PHANDS) is an ERC-20 token launched on October 7, 2025, \par  at address \par  \small\url{https://etherscan.io/address/0x11157Da1fC6dCfd58b50ed79082183b2c6176245}\normalsize \par on Ethereum Mainnet. Redefining the ``paper hands'' meme, \$PHANDS offers high-yield staking (20\% APY, 30-day lockup, 180-day cycle), 5\% referral bonuses on user activity (e.g., swaps, minted as new tokens, max. 1,000 PHAND/referrer/tx), and 20\% deposit bonuses for the first 5 liquidity providers (min. 1,000 PHAND swap, max. 200 PHAND bonus) in WETH/PHANDS pools (\$\,319 current liquidity, targeting \$\,5,000--\$\,50,000 short-term, \$\,100,000 long-term). With an initial 1,000,000 \$PHANDS supply (mintable for airdrops/referrals, planned to be fixed in Q2 2026 via ownership renounce), and anti-whale limits (2\% max wallet, 1\% max tx), the project drives adoption via airdrops (100 PHAND for the first 10 Telegram joiners). This whitepaper details the token’s mechanics, economics, and roadmap to achieve 10,000+ holders by Q3 2026. Participate in staking and incentives to build a robust community. \#PaperHands2DiamondHands
+
+\chapter{Problem Statement and Market Overview}
+Memecoins and DeFi face challenges such as whale dominance, premature selling, and insufficient retail incentives. The global cryptocurrency market exceeds \$\,2 trillion in 2025, with memecoins driving \$\,400 billion+ in volume and DeFi total value locked (TVL) at \$\,600 billion (\cite{coinmarketcap}, \cite{defillama}). \$PHANDS targets retail traders and meme enthusiasts seeking high returns and fair access in a volatile market.
+
+\begin{itemize}
+    \item \textbf{Market Size:} Memecoin volume: \$\,400 billion+; DeFi TVL: \$\,600 billion (Q3 2025).
+    \item \textbf{Target Audience:} Global retail investors, meme and DeFi communities in Europe, Asia, and beyond.
+    \item \textbf{Competitive Landscape:}
+\end{itemize}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l|p{3.5cm}|p{3.5cm}|p{3.5cm}}
+        \toprule
+        \textbf{Competitor} & \textbf{Strength} & \textbf{Weakness} & \textbf{\$PHANDS Advantage} \\
+        \midrule
+        SHIB & Viral community & High inflation & Initial 1M supply, 20\% APY \\
+        DOGE & Brand recognition & No staking & 30-day lockup, high yields \\
+        PEPE & Low entry & Whale control & Anti-whale limits (2\% wallet) \\
+        \bottomrule
+    \end{tabular}
+    \caption{Competitive Landscape}
+\end{table}
+
+\chapter{Solution}
+\$PHANDS transforms memecoins by offering high staking rewards (20\% APY, 30-day lockup, 180-day cycle), 5\% referral bonuses for user activity (e.g., swaps, minted as new tokens, max. 1,000 PHAND/referrer/tx), and 20\% deposit bonuses for the first 5 liquidity providers (min. 1,000 PHAND swap, max. 200 PHAND bonus) on WETH/PHANDS pools (\url{https://app.uniswap.org}: \$\,110, \url{https://balancer.fi}: \$\,209, targeting \$\,5,000--\$\,50,000). Anti-whale mechanics (1\% max tx, 2\% max wallet) ensure fairness, while airdrops (100 PHAND for the first 10 Telegram joiners) drive adoption. A dedicated staking decentralized application (dApp) and potential long-term governance exploration (2027+) empower users to earn and participate. Minting is enabled to attract new users but planned to be deactivated in Q2 2026 via ownership renounce.
+
+\chapter{Technology}
+\$PHANDS is a Solidity v0.8.30 ERC-20 token using OpenZeppelin libraries \par (ERC20, ERC20Pausable, Ownable),  deployed at  \par \small\url{https://etherscan.io/address/0x11157Da1fC6dCfd58b50ed79082183b2c6176245}\normalsize. A separate staking contract enables high-yield rewards and liquidity provider (LP) bonuses, verified on Etherscan.
+
+\begin{itemize}
+    \item \textbf{Architecture:} ERC-20 with custom \texttt{\_update} hooks for limits and referrals; staking contract with SafeERC20, ReentrancyGuard, Pausable.
+    \item \textbf{Consensus:} Ethereum Proof-of-Stake (PoS) for secure, energy-efficient operations.
+    \item \textbf{Key Functions (Token Contract):}
+    \begin{itemize}
+        \item Transfers with 1\% max transaction (10,000 PHAND) and 2\% max wallet (20,000 PHAND, except owner).
+        \item Referral system: \texttt{setReferrer()} and \texttt{claimReferralBonus()} (5\% bonus on user activity, e.g., swaps, minted as new tokens, max. 1,000 PHAND/referrer/tx).
+        \item Airdrop: Batch distribution to max. 20 addresses per call (e.g., 100 PHAND for first 10 Telegram joiners).
+        \item Pause/unpause for emergency control (renounceable).
+    \end{itemize}
+    \item \textbf{Key Functions (Staking Contract):}
+    \begin{itemize}
+        \item 30-day lockup (\texttt{LOCK\_PERIOD = 30 days}).
+        \item 20\% annual APY (\texttt{REWARD\_RATE = 55}, $\sim$0.055\% daily, adjusted by stake ratio, 180-day cycle).
+        \item LP staking with 20\% deposit bonus for WETH/PHANDS pools.
+        \item Auto-claim option for rewards.
+    \end{itemize}
+    \item \textbf{Security:} Reentrancy protection, immutable limits, owner-controlled minting. Audit planned (Certik, Q1 2026).
+    \item \textbf{Scalability:} Ethereum Mainnet (15 TPS); planned Layer 2 migration (e.g., Polygon, 2,000+ TPS) for lower fees and faster transactions.
+    \item \textbf{Liquidity Pools:}
+    \begin{itemize}
+        \item Uniswap V2/V3: WETH/PHANDS pool ($\sim$\$\,110 liquidity, under development, targeting \$\,5,000--\$\,50,000 short-term, \$\,100,000 long-term).
+        \item Balancer V3: WETH/PHANDS pool ($\sim$\$\,209 liquidity, under development, targeting \$\,5,000--\$\,50,000 short-term, \$\,100,000 long-term).
+    \end{itemize}
+\end{itemize}
+
+\section{Sample Code (Token Contract)}
+\begin{lstlisting}
+// SPDX-License-License: MIT
+pragma solidity ^0.8.20;
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract PaperHands is ERC20, ERC20Pausable, Ownable {
+    uint256 public immutable maxTxAmt = 10000 * 10 ** 18; // 1% limit
+    uint256 private immutable mwp = 200; // 2% max wallet
+    uint256 private immutable rbp = 500; // Referral bonus 5%
+    mapping(address => address) public referrers;
+
+    constructor() ERC20("PaperHands", "PHANDS") Ownable(msg.sender) {
+        _mint(msg.sender, 1000000 * 10 ** 18); // Initial 1M supply
+    }
+
+    function mint(address to, uint256 amt) public onlyOwner {
+        _mint(to, amt);
+    }
+
+    function setReferrer(address ref) external {
+        require(referrers[msg.sender] == address(0), "Ref already set");
+        require(ref != msg.sender, "No self-ref");
+        referrers[msg.sender] = ref;
+    }
+
+    function claimReferralBonus(address buyer, uint256 buyAmt) external onlyOwner {
+        address ref = referrers[buyer];
+        if (ref != address(0)) {
+            uint256 bonus = (buyAmt * rbp) / 10000;
+            _mint(ref, bonus);
+        }
+    }
+
+    function airdrop(address[] calldata recips, uint256[] calldata amts) external onlyOwner {
+        require(recips.length == amts.length && recips.length <= 20, "Array mismatch or too long");
+        for (uint i = 0; i < recips.length; i++) {
+            _mint(recips[i], amts[i]);
+        }
+    }
+
+    function pause() public onlyOwner { _pause(); }
+    function unpause() public onlyOwner { _unpause(); }
+
+    function _update(address from, address to, uint256 amt) internal override(ERC20, ERC20Pausable) {
+        if (from != address(0)) {
+            require(amt <= maxTxAmt, "Exceeds tx limit");
+            if (to != owner()) {
+                uint256 totSup = totalSupply();
+                uint256 maxWal = (totSup * mwp) / 10000;
+                require(balanceOf(to) + amt <= maxWal, "Exceeds wallet limit");
+            }
+        }
+        super._update(from, to, amt);
+    }
+}
+\end{lstlisting}
+
+\section{Sample Code (Staking Contract, Excerpt)}
+\begin{lstlisting}
+// SPDX-License-License: MIT
+pragma solidity ^0.8.20;
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+
+contract MyStaking is Ownable, ReentrancyGuard, Pausable {
+    using SafeERC20 for IERC20;
+    IERC20 public paperHandsToken;
+    IERC20 public lpToken;
+    uint256 public constant REWARD_RATE = 55; // ~20% annual APY
+    uint256 public constant LOCK_PERIOD = 30 days;
+
+    constructor(address _paperHandsToken, address _lpToken) Ownable(msg.sender) {
+        paperHandsToken = IERC20(_paperHandsToken);
+        lpToken = IERC20(_lpToken);
+    }
+
+    function stakePHAND(uint256 amount) external whenNotPaused nonReentrant {
+        require(amount > 0, "Amount must be > 0");
+        // Staking logic with 30-day lockup and 20% APY
+    }
+
+    function stakeLP(uint256 amount) external whenNotPaused nonReentrant {
+        require(amount > 0, "Amount must be > 0");
+        // LP staking with 20% deposit bonus
+    }
+}
+\end{lstlisting}
+
+\chapter{Tokenomics}
+\begin{itemize}
+    \item \textbf{Token Symbol:} \$PHANDS
+    \item \textbf{Total Supply:} Initial 1,000,000 \$PHANDS (18 decimals, minted at deployment), with owner-controlled minting for airdrops and referral bonuses, planned to be deactivated in Q2 2026 via ownership renounce.
+    \item \textbf{Distribution:}
+    \begin{itemize}
+        \item Community/Staking/Airdrops: 50\% (500,000 PHANDS: 100 PHAND airdrops for first 10 Telegram joiners, staking rewards, community promotions/swaps).
+        \item Liquidity Pools: 20\% (200,000 PHANDS: Uniswap/Balancer, \$\,319 current, 20\% bonus for first 5 providers, min. 1,000 PHAND, max. 200 PHAND, targeting \$\,5,000--\$\,50,000).
+        \item Team/Reserve: 25\% (250,000 PHANDS, 24-month vesting for founder).
+        \item Ecosystem/Marketing: 5\% (50,000 PHANDS: additional airdrops, promotions, community incentives).
+    \end{itemize}
+    \item \textbf{Utility:}
+    \begin{itemize}
+        \item Staking: 20\% APY for 180 days, 30-day lockup, compound interest.
+        \item Liquidity: 20\% deposit bonus for first 5 providers (min. 1,000 PHAND, max. 200 PHAND).
+        \item Referrals: 5\% bonus on user activity (e.g., swaps, minted as new tokens, max. 1,000 PHAND/referrer/tx, owner-controlled).
+        \item Governance: Potential long-term governance exploration (2027+), currently centralized under founder control.
+    \end{itemize}
+    \item \textbf{Mechanisms:} Anti-whale limits (1\% transaction, 2\% wallet); no built-in burn, but community-voted deflation possible. No transaction tax (gas only).
+\end{itemize}
+
+\chapter{Team}
+The PaperHands project is led by a dedicated solo founder under the PaperHands Development Team, focused on high-yield decentralized finance (DeFi) and meme-driven growth.
+
+\begin{itemize}
+    \item \textbf{AnonDev (Founder \& Lead Developer)}: 2--3 years in blockchain development, specializing in ERC-20 tokens and referral/staking systems. Deployed multiple contracts on Ethereum, emphasizing fair distribution and high returns.
+    \item \textbf{Links:} X: \url{https://x.com/OfficialPHANDS} | Telegram: \url{https://t.me/phandsannouncement}.
+\end{itemize}
+
+\chapter{Roadmap}
+\vspace{3cm} % Adding vertical space to push the table lower on the page
+\begin{table}[h]
+    \centering
+    \begin{tabular}{p{3.5cm}|p{3.5cm}|p{7cm}}
+        \toprule
+        \textbf{Phase} & \textbf{Timeline} & \textbf{Milestones} \\
+        \midrule
+        Phase 1: Launch & Q4 2025 (Oct) & Token deployed (Oct 7), Uniswap/Balancer pools (\$\,319 liquidity, targeting \$\,5,000--\$\,50,000), staking dApp live (\small\url{https://phands-staking-dapp.vercel.app}\normalsize), 100 PHAND airdrops for first 10 Telegram joiners, Telegram growth (1,000+ members). \\
+        Phase 2: Growth & Q1 2026 & 5,000 holders, referral program scale-up, Certik audit, X/Telegram campaigns, 20\% deposit bonus campaign. \\
+        Phase 3: Expansion & Q2--Q3 2026 & Ownership renounce to deactivate minting (Q2), CEX listings (e.g., KuCoin), DeFi integrations (Aave/Curve), liquidity pools to \$\,50,000--\$\,100,000, 10,000+ holders. \\
+        Phase 4: Maturity & 2027+ & 50,000 holders, Layer 2 migration (e.g., Polygon), NFT staking or cross-chain features, potential governance exploration. \\
+        \bottomrule
+    \end{tabular}
+    \caption{Roadmap}
+\end{table}
+
+\chapter{Risks and Mitigation}
+\begin{itemize}
+    \item \textbf{Market Risk:} Memecoin volatility -- Mitigated by 20\% APY and 5\% referral incentives.
+    \item \textbf{Technical Risk:} Contract bugs -- OpenZeppelin libraries; Certik audit planned (Q1 2026).
+    \item \textbf{Regulatory Risk:} EU MiCA compliance -- Transparent design, legal consultation ongoing.
+    \item \textbf{Adoption Risk:} Slow growth -- Airdrops (100 PHAND for first 10 Telegram joiners) and 5\% referrals for viral spread.
+    \item \textbf{Inflation Risk:} Owner-controlled minting for referrals/airdrops (max. $\sim$3--4\% supply increase, e.g., 25,000 PHANDS for 25 referrers at 1,000 PHAND each) -- Mitigated by owner-controlled limits, planned ownership renounce in Q2 2026, and potential long-term governance (2027+).
+\end{itemize}
+
+\chapter{Legal Disclaimer}
+This whitepaper is for informational purposes only and does not constitute financial, investment, or legal advice. \$PHANDS carries risks, including potential total loss due to market volatility. The project aims for compliance with EU MiCA regulations (2024). No guarantees of returns are provided. Conduct your own research (DYOR) and consult professionals. The team is not liable for losses.
+
+\begin{thebibliography}{9}
+    \bibitem{etherscan}
+    Etherscan: \small\url{https://etherscan.io/address/0x11157Da1fC6dCfd58b50ed79082183b2c6176245}\normalsize
+    \bibitem{openzeppelin}
+    OpenZeppelin Docs: \url{https://docs.openzeppelin.com/contracts/5.x/erc20}
+    \bibitem{uniswap}
+    Uniswap: \url{https://app.uniswap.org/#/swap?inputCurrency=0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&outputCurrency=0x11157Da1fC6dCfd58b50ed79082183b2c6176245}
+    \bibitem{balancer}
+    Balancer Pool: \url{https://balancer.fi/pools/ethereum/v3/0xe36b198c43ddbec2d25c4f0a0bc5b80330551009}
+    \bibitem{coinmarketcap}
+    Market Data: CoinMarketCap, 2025.
+    \bibitem{defillama}
+    Market Data: DeFiLlama, 2025.
+    \bibitem{community}
+    Community: X (\url{https://x.com/OfficialPHANDS}), Telegram (\url{https://t.me/phandsannouncement}).
+\end{thebibliography}
+
+\end{document}

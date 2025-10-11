@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperHands (PHANDS) - Official Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-out;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a, #6b21a8, #db2777);
+        }
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+        }
+        .roadmap-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #db2777;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    <header class="gradient-bg py-6 text-center">
+        <img src="https://i.ibb.co/jv6Yt1xS/paperhands-webpage.jpg" alt="PaperHands (PHANDS) Logo" class="logo-img animate-fadeIn" style="display: block;">
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight mt-4">PaperHands (PHANDS)</h1>
+        <p class="mt-2 text-lg opacity-80">The Weak Hands Revolution on Ethereum</p>
+        <p class="text-sm opacity-70" id="lastUpdated">Last Updated: Loading...</p>
+    </header>
+
+    <nav class="bg-gray-800 py-4 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto flex justify-center space-x-6">
+            <a href="#home" class="text-blue-400 hover:text-blue-300 font-medium">Home</a>
+            <a href="#roadmap" class="text-blue-400 hover:text-blue-300 font-medium">Roadmap</a>
+            <a href="#connect" class="text-blue-400 hover:text-blue-300 font-medium">Connect</a>
+            <a href="#whitepaper" class="text-blue-400 hover:text-blue-300 font-medium">Whitepaper</a>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 py-10">
+        <section class="hero text-center py-16 animate-fadeIn" id="home">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Welcome to PaperHands</h2>
+            <p class="text-lg md:text-xl mb-4 max-w-2xl mx-auto opacity-90" id="priceDescription">
+                PaperHands (PHANDS) is a revolutionary ERC-20 cryptocurrency on Ethereum, featuring a massive 18x pump, now stabilizing at <span id="currentPrice">Loading...</span> USD! With a low market cap, 2% max wallet limits, and upcoming LP Staking at 20% APR, it’s designed for fair and fun trading. Built with max transaction limits (10,000 PHANDS), referral bonuses (5%), and optimized airdrops for security and efficiency.
+            </p>
+            <p class="text-sm mb-8 max-w-2xl mx-auto opacity-70">
+                Contract Address: <code class="bg-gray-800 px-2 py-1 rounded text-blue-300">0x11157Da1fC6dCfd58b50ed79082183b2c6176245</code>
+            </p>
+            <button id="connectWallet" class="bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-500 hover-scale">
+                Connect Wallet
+            </button>
+            <a href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x11157Da1fC6dCfd58b50ed79082183b2c6176245" target="_blank" class="ml-4 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-500 hover-scale">
+                Trade on Uniswap
+            </a>
+            <a href="https://apespace.io/eth/0x11157Da1fC6dCfd58b50ed79082183b2c6176245" target="_blank" class="ml-4 bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-500 hover-scale">
+                Track on ApeSpace
+            </a>
+            <a href="https://phands-staking-dapp.vercel.app/" target="_blank" class="ml-4 bg-yellow-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-yellow-500 hover-scale">
+                Stake on PHANDS DApp
+            </a>
+            <div class="mt-6">
+                <h3 class="text-xl font-semibold text-purple-300">React App</h3>
+                <p class="text-sm opacity-70">You need to enable JavaScript to run this app.</p>
+            </div>
+        </section>
+
+<section class="roadmap py-16 animate-fadeIn" id="roadmap">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Roadmap</h2>
+    <div class="max-w-4xl mx-auto space-y-6">
+        <div class="roadmap-item">
+            <h3 class="text-xl font-semibold text-purple-300">Phase 1: Launch & Initial Growth (Q3 2025)</h3>
+            <p class="mt-2 opacity-90">Successful launch of PHANDS on Ethereum with a 18x pump. Establish community engagement via Telegram and Discord. Implement 2% max wallet and 10,000 PHANDS transaction limits for fairness.</p>
+        </div>
+        <div class="roadmap-item">
+            <h3 class="text-xl font-semibold text-purple-300">Phase 2: Community Expansion (Q4 2025)</h3>
+            <p class="mt-2 opacity-90">
+                Introduce referral bonus system (5% for referrers). Launch optimized airdrops to reward early adopters (max 20 recipients per batch). Begin development of LP Staking with 20% APR. 
+                <strong>Added liquidity pools on Uniswap and Balancer to grow market cap; pools are continuously expanded to support trading.</strong>
+            </p>
+        </div>
+        <div class="roadmap-item">
+            <h3 class="text-xl font-semibold text-purple-300">Phase 3: Stabilization & Features (Q1 2026)</h3>
+            <p class="mt-2 opacity-90">Stabilize price around $0.017-$0.026 range. Roll out LP Staking on Uniswap. Conduct security audits and prepare for presale on PinkSale with auto-LP allocation.</p>
+        </div>
+        <div class="roadmap-item">
+            <h3 class="text-xl font-semibold text-purple-300">Phase 4: Global Adoption (Q2 2026)</h3>
+            <p class="mt-2 opacity-90">Expand marketing to global crypto communities. Integrate with additional DEXs and tracking platforms. Introduce a "Weak Hands Challenge" gamification feature to reward active traders with exclusive badges and bonus tokens.</p>
+        </div>
+    </div>
+</section>
+
+
+
+    </div>
+
+    <footer class="gradient-bg py-6 text-center">
+        <p class="opacity-80">&copy; 2025 PaperHands (PHANDS). All rights reserved.</p>
+        <div class="mt-2">
+            <a href="https://t.me/phandsannouncement" class="text-blue-200 hover:text-blue-100 mx-2">Telegram</a>
+            <a href="https://discord.gg/paperhands" class="text-blue-200 hover:text-blue-100 mx-2">Discord</a>
+            <a href="https://x.com/OfficialPHANDS" class="text-blue-200 hover:text-blue-100 mx-2">X</a>
+        </div>
+    </footer>
+
+    <script>
+        // Aktuális dátum és idő beállítása
+        const now = new Date();
+        document.getElementById('lastUpdated').textContent = `Last Updated: ${now.toLocaleString('en-GB', { timeZone: 'CET', hour12: false })} CEST`;
+
+        // Dinamikus árfrissítés szimulációja
+        async function fetchPrice() {
+            try {
+                let basePrice = 0.22;
+                const fluctuation = (Math.random() - 0.5) * 0.04;
+                const currentPrice = (basePrice + fluctuation).toFixed(4);
+                const adjustedPrice = Math.max(0.017, Math.min(0.026, parseFloat(currentPrice)));
+                document.getElementById('currentPrice').textContent = adjustedPrice;
+                setTimeout(fetchPrice, 60000);
+            } catch (error) {
+                document.getElementById('currentPrice').textContent = 'Error fetching price';
+                console.error('Error fetching price:', error);
+            }
+        }
+
+        // Ár betöltése az oldal indulásakor
+        fetchPrice();
+
+        // Wallet kapcsolat (hibakereséssel kiegészítve)
+        document.getElementById('connectWallet').addEventListener('click', async () => {
+            console.log('Connect Wallet clicked at:', new Date().toLocaleString('en-GB', { timeZone: 'CET', hour12: false }));
+            console.log('window.ethereum:', window.ethereum);
+            console.log('navigator.userAgent:', navigator.userAgent); // Böngésző info
+
+            if (window.ethereum && typeof window.ethereum.request === 'function') {
+                console.log('MetaMask detected. Attempting connection...');
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    console.log('Accounts:', accounts);
+                    if (accounts.length > 0) {
+                        alert(`Connected! Address: ${accounts[0]}`);
+                    } else {
+                        alert('No accounts found. Unlock MetaMask or add an account.');
+                    }
+                } catch (error) {
+                    console.error('Connection error:', error);
+                    if (error.code === 4001) alert('You rejected the connection.');
+                    else if (error.code === -32002) alert('Pending request. Approve in MetaMask.');
+                    else alert(`Error: ${error.message}`);
+                }
+            } else {
+                console.log('MetaMask not detected or not functioning. Checking environment...');
+                if (!window.ethereum) {
+                    console.log('No window.ethereum object. Ensure MetaMask is installed and enabled.');
+                    alert('MetaMask not detected. Please install or enable it!');
+                    window.open('https://metamask.io/download/', '_blank');
+                } else if (typeof window.ethereum.request !== 'function') {
+                    console.log('window.ethereum exists but lacks request method. Possible outdated MetaMask.');
+                    alert('MetaMask may be outdated. Please update it!');
+                }
+                console.log('No wallet provider detected.');
+            }
+        });
+    </script>
+</body>
+</html>
