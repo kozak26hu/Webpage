@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperHands (PHANDS) - Referral Program</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes glow { 0% { text-shadow: 0 0 5px rgba(59,130,246,0.5);} 50% { text-shadow:0 0 15px rgba(59,130,246,0.8),0 0 25px rgba(59,130,246,0.4);} 100% { text-shadow:0 0 5px rgba(59,130,246,0.5);} }
+        .animate-fadeIn { animation: fadeIn 1s ease-out; }
+        .gradient-bg { background: linear-gradient(135deg,#0a1e3b,#1e40af,#60a5fa); background-size:200% 200%; animation: metallicShine 5s ease-in-out infinite; }
+        @keyframes metallicShine { 0% {background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+        .hover-scale { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .hover-scale:hover { transform: scale(1.03); box-shadow:0 0 15px rgba(59,130,246,0.6); }
+        .card-item { background: linear-gradient(145deg, rgba(17,24,39,0.8), rgba(31,41,55,0.8)); border-left:4px solid #60a5fa; padding:1.25rem; margin-bottom:1rem; border-radius:0.5rem; box-shadow: inset 0 0 10px rgba(59,130,246,0.3);}
+        .glow-text { animation: glow 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+<header class="gradient-bg py-6 text-center">
+    <h1 class="text-3xl md:text-4xl font-bold glow-text">Referral Program</h1>
+    <p class="mt-2 opacity-80">LP Staking Referral Incentive &mdash; Early-Bird, tied to the current liquidity round</p>
+</header>
+
+<nav class="bg-gray-800 py-4 sticky top-0 z-10">
+    <div class="max-w-4xl mx-auto flex justify-center space-x-6">
+        <a href="index.html" class="text-blue-400 hover:text-blue-300 font-medium">Home</a>
+        <a href="index.html#milestones" class="text-blue-400 hover:text-blue-300 font-medium">Milestones</a>
+        <a href="whitepaper.pdf" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium">Whitepaper</a>
+    </div>
+</nav>
+
+<div class="max-w-3xl mx-auto px-4 py-12 animate-fadeIn">
+
+    <p class="opacity-90 mb-8">
+        This is separate from the standing 5% token-level swap referral described in the whitepaper (Section 4.2).
+        This program is specifically about growing pool liquidity during our current community funding round.
+    </p>
+
+    <div class="card-item">
+        <h3 class="text-lg font-semibold text-blue-300">What qualifies</h3>
+        <p class="mt-1 opacity-90 text-sm">
+            You refer someone new, and they stake LP tokens (PHANDS/WETH) in our staking contract for the full
+            90-day LP lock period. Only LP staking counts &mdash; not the 30-day PHAND stake &mdash; because LP
+            staking directly deepens our Uniswap pool.
+        </p>
+    </div>
+
+    <div class="card-item">
+        <h3 class="text-lg font-semibold text-blue-300">What you get</h3>
+        <p class="mt-1 opacity-90 text-sm">
+            A one-time reward equal to <b>5% of the referred person's LP stake value</b>, paid in PHAND. No
+            minimum stake size required.
+        </p>
+    </div>
+
+    <div class="card-item">
+        <h3 class="text-lg font-semibold text-blue-300">When you get paid</h3>
+        <p class="mt-1 opacity-90 text-sm">
+            As soon as the referred person's <code class="bg-gray-800 px-1 rounded">stakeLP</code> transaction is
+            confirmed on-chain. You don't need to wait 90 days &mdash; the lock itself is already enforced by the
+            contract, so we can pay the referral reward right away.
+        </p>
+    </div>
+
+    <div class="card-item">
+        <h3 class="text-lg font-semibold text-blue-300">How it's verified</h3>
+        <p class="mt-1 opacity-90 text-sm">
+            Currently handled manually. Message us on
+            <a href="https://t.me/phandsannouncement" class="text-blue-300 hover:text-blue-200 underline">Telegram</a>
+            with your wallet address and the wallet address of the person you referred. We verify the stake
+            on-chain via Etherscan before paying out.
+        </p>
+    </div>
+
+    <div class="card-item">
+        <h3 class="text-lg font-semibold text-blue-300">Time limit</h3>
+        <p class="mt-1 opacity-90 text-sm">
+            This 5% early-bird rate is valid through the end of our current community funding round (see our
+            <a href="https://juicebox.money/v5/eth:105" target="_blank" class="text-blue-300 hover:text-blue-200 underline">Juicebox campaign</a>).
+            Terms for future rounds may differ and will be published here.
+        </p>
+    </div>
+
+    <div class="card-item">
+        <h3 class="text-lg font-semibold text-blue-300">Why we don't pay for promotion upfront</h3>
+        <p class="mt-1 opacity-90 text-sm">
+            We get asked regularly to pay for "promotion" or "marketing" with no way to verify results. This
+            program is our answer: no upfront payment, no empty promises &mdash; just a transparent, fixed rate
+            tied to something verifiable on-chain. If you can genuinely bring people who lock liquidity, this is
+            how we compensate that.
+        </p>
+    </div>
+
+    <div class="card-item">
+        <h3 class="text-lg font-semibold text-blue-300">A note on abuse</h3>
+        <p class="mt-1 opacity-90 text-sm">
+            Because the reward is a percentage of real, locked capital, farming this with multiple wallets means
+            locking real money in each one for 90 days &mdash; a cost that generally outweighs the reward. We
+            also reserve the right to review the funding source behind suspicious clusters of referrals and
+            withhold payment where abuse is evident.
+        </p>
+    </div>
+
+    <p class="mt-10 text-center opacity-70 text-sm">
+        Full technical details are also documented in our
+        <a href="whitepaper.pdf" class="text-blue-300 hover:text-blue-200 underline">whitepaper</a> (Section 7.3).
+    </p>
+
+</div>
+
+<footer class="gradient-bg py-6 text-center mt-8">
+    <p class="opacity-80">&copy; 2026 PaperHands (PHANDS). All rights reserved.</p>
+    <div class="mt-2">
+        <a href="https://t.me/phandsannouncement" class="text-blue-200 hover:text-blue-100 mx-2">Telegram</a>
+        <a href="https://x.com/OfficialPHANDS" class="text-blue-200 hover:text-blue-100 mx-2">X</a>
+    </div>
+</footer>
+
+</body>
+</html>
