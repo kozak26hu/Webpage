@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; connect-src 'self' https://eth.llamarpc.com https://api.coingecko.com ws://localhost:8080; img-src 'self' https://i.ibb.co data:; style-src 'self' 'unsafe-inline'; object-src 'self';" />
+    <title>PaperHands (PHANDS) — Official Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* ─── Animations ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(32px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { text-shadow: 0 0 8px rgba(96, 165, 250, 0.25); }
+            50% { text-shadow: 0 0 28px rgba(96, 165, 250, 0.7), 0 0 60px rgba(96, 165, 250, 0.2); }
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ─── Reset & Base ─── */
+        * { scroll-behavior: smooth; }
+        body {
+            background: #080c1a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #e8edf5;
+        }
+
+        /* ─── Gradients ─── */
+        .gradient-hero {
+            background: linear-gradient(135deg, #0b1428, #16245c, #1f3a7a, #16245c);
+            background-size: 300% 300%;
+            animation: gradientMove 10s ease-in-out infinite;
+        }
+        .gradient-footer {
+            background: linear-gradient(135deg, #0b1428, #16245c);
+        }
+
+        /* ─── Glow ─── */
+        .glow-text {
+            animation: pulseGlow 2.8s ease-in-out infinite;
+        }
+
+        /* ─── Glassmorphism cards ─── */
+        .glass {
+            background: rgba(17, 24, 39, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(96, 165, 250, 0.10);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .glass:hover {
+            transform: translateY(-5px);
+            border-color: rgba(96, 165, 250, 0.35);
+            box-shadow: 0 16px 48px rgba(96, 165, 250, 0.12);
+        }
+
+        /* ─── Logo ─── */
+        .logo-wrap {
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a2a6c, #60a5fa);
+            padding: 3px;
+            animation: float 4.5s ease-in-out infinite;
+        }
+        .logo-wrap img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #080c1a;
+        }
+
+        /* ─── Buttons ─── */
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 36px rgba(59, 130, 246, 0.40);
+        }
+        .btn-secondary {
+            background: rgba(31, 41, 55, 0.70);
+            border: 1px solid rgba(96, 165, 250, 0.15);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .btn-secondary:hover {
+            border-color: rgba(96, 165, 250, 0.50);
+            transform: translateY(-3px);
+            background: rgba(31, 41, 55, 0.90);
+        }
+
+        /* ─── Navigation ─── */
+        .nav-link {
+            position: relative;
+            color: #94a3b8;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #60a5fa;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* ─── Roadmap items ─── */
+        .roadmap-item {
+            border-left: 3px solid #3b82f6;
+            padding-left: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .roadmap-item:hover {
+            border-left-color: #60a5fa;
+            padding-left: 1.75rem;
+        }
+        .roadmap-item.done {
+            border-left-color: #22c55e;
+        }
+        .badge {
+            font-size: 0.60rem;
+            padding: 0.15rem 0.65rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .badge-done { background: #22c55e20; color: #4ade80; border: 1px solid #22c55e40; }
+        .badge-live { background: #3b82f620; color: #60a5fa; border: 1px solid #3b82f640; }
+        .badge-pending { background: #f59e0b20; color: #fbbf24; border: 1px solid #f59e0b40; }
+
+        /* ─── Price cards ─── */
+        .price-card {
+            background: rgba(17, 24, 39, 0.50);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(96, 165, 250, 0.08);
+            min-width: 120px;
+        }
+
+        /* ─── Scrollbar ─── */
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: #080c1a; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #1a2a6c, #3b82f6); border-radius: 6px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+        /* ─── Responsive tweaks ─── */
+        @media (max-width: 640px) {
+            .logo-wrap { width: 80px; height: 80px; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════ HERO ═══════════════════ -->
+    <header class="gradient-hero relative overflow-hidden">
+        <!-- Ornamental blobs -->
+        <div class="absolute -top-20 -left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 py-14 md:py-20 relative z-10">
+            <div class="flex flex-col items-center text-center">
+
+                <!-- Logo -->
+                <div class="logo-wrap mb-6">
+                    <img src="logo.png" alt="PaperHands Logo"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22108%22 height=%22108%22%3E%3Crect width=%22108%22 height=%22108%22 fill=%22%231a2a6c%22/%3E%3Ctext x=%2254%22 y=%2260%22 text-anchor=%22middle%22 fill=%22%2360a5fa%22 font-size=%2236%22 font-weight=%22bold%22 font-family=%22sans-serif%22%3EPH%3C/text%3E%3C/svg%3E'" />
+                </div>
+
+                <h1 class="text-4xl md:text-6xl font-extrabold glow-text tracking-tight">
+                    PaperHands <span class="text-blue-400">(PHANDS)</span>
+                </h1>
+                <p class="mt-3 text-lg md:text-xl text-blue-200/70 font-light tracking-wide">
+                    The Weak Hands Revolution on Ethereum
+                </p>
+                <p class="mt-1 text-sm text-blue-300/50" id="lastUpdated">
+                    Last Updated: <span class="font-mono">Loading…</span>
+                </p>
+
+                <!-- Primary CTAs -->
+                <div class="mt-8 flex flex-wrap gap-3 justify-center">
+                    <button id="connectWallet" class="btn-primary text-white px-6 py-3.5 rounded-2xl flex items-center gap-2.5 text-sm md:text-base">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Connect Wallet
+                    </button>
+                    <a href="https://app.uniswap.org/swap?inputCurrency=WETH&outputCurrency=0x11157Da1fC6dCfd58b50ed79082183b2c6176245" target="_blank" class="btn-secondary text-white px-6 py-3.5 rounded-2xl flex items-center gap-2.5 text-sm md:text-base">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                        Uniswap
+                    </a>
+                    <a href="https://balancer.fi/swap/ethereum/WETH/0x11157da1fc6dcfd58b50ed79082183b2c6176245" target="_blank" class="btn-secondary text-white px-6 py-3.5 rounded-2xl flex items-center gap-2.5 text-sm md:text-base">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                        Balancer
+                    </a>
+                </div>
+
+                <!-- Contract address with copy -->
+                <div class="mt-6 bg-black/30 backdrop-blur-sm rounded-2xl px-5 py-3 border border-blue-500/15 inline-flex items-center gap-3 text-sm">
+                    <span class="text-blue-300/50">Contract:</span>
+                    <code class="text-blue-300 font-mono text-xs md:text-sm">0x11157Da1fC6dCfd58b50ed79082183b2c6176245</code>
+                    <button onclick="navigator.clipboard.writeText('0x11157Da1fC6dCfd58b50ed79082183b2c6176245')" class="text-blue-400/50 hover:text-blue-300 transition-colors" title="Copy">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                    </button>
+                </div>
+
+                <!-- Quick links row -->
+                <div class="mt-5 flex flex-wrap gap-2 justify-center">
+                    <a href="https://phands-staking-dapp.vercel.app/" target="_blank" class="text-xs bg-yellow-500/15 hover:bg-yellow-500/25 text-yellow-300 px-4 py-2 rounded-xl transition-all border border-yellow-500/15">🚀 dApp (Swap / Stake)</a>
+                    <a href="https://juicebox.money/v5/eth%3A105" target="_blank" class="text-xs bg-pink-500/15 hover:bg-pink-500/25 text-pink-300 px-4 py-2 rounded-xl transition-all border border-pink-500/15">💧 Liquidity Round</a>
+                    <a href="https://defillama.com/protocol/paperhands" target="_blank" class="text-xs bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 px-4 py-2 rounded-xl transition-all border border-purple-500/15">📊 DefiLlama</a>
+                    <a href="https://apespace.io/eth/0x29b2b1450dfe8d856fa42250437b1e827435f82e" target="_blank" class="text-xs bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 px-4 py-2 rounded-xl transition-all border border-indigo-500/15">🐵 ApeSpace</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <nav class="sticky top-0 z-50 bg-gray-900/70 backdrop-blur-xl border-b border-blue-500/10">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-center gap-5 md:gap-9">
+            <a href="#home" class="nav-link text-sm">Home</a>
+            <a href="#milestones" class="nav-link text-sm">Milestones</a>
+            <a href="#roadmap" class="nav-link text-sm">Roadmap</a>
+            <a href="referral.html" class="nav-link text-sm">Referral</a>
+            <a href="whitepaper.pdf" target="_blank" class="nav-link text-sm">Whitepaper</a>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════ MAIN ═══════════════════ -->
+    <main class="max-w-7xl mx-auto px-4 py-14">
+
+        <!-- ─── INTRO ─── -->
+        <section class="animate-[fadeUp_0.8s_ease-out]" id="home">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold glow-text">Welcome to PaperHands</h2>
+                <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
+                    PHANDS is an ERC‑20 token on Ethereum. Currently trading at
+                    <span id="currentPrice" class="text-blue-400 font-bold">Loading…</span> USD
+                    across Uniswap V2 and Balancer.
+                </p>
+            </div>
+
+            <!-- ─── PRICE CARDS ─── -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-14">
+                <div class="price-card rounded-2xl p-5 text-center">
+                    <p class="text-sm text-blue-400/60 font-medium">Uniswap V2</p>
+                    <p id="uniPrice" class="text-2xl font-bold text-white mt-1">Loading…</p>
+                </div>
+                <div class="price-card rounded-2xl p-5 text-center">
+                    <p class="text-sm text-blue-400/60 font-medium">Balancer V3</p>
+                    <p id="balPrice" class="text-2xl font-bold text-white mt-1">Loading…</p>
+                </div>
+                <div class="price-card rounded-2xl p-5 text-center">
+                    <p class="text-sm text-blue-400/60 font-medium">Difference</p>
+                    <p id="priceDiff" class="text-2xl font-bold text-white mt-1">Loading…</p>
+                </div>
+            </div>
+
+            <!-- ─── INFO CARDS (Juicebox + Referral) ─── -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold text-pink-300 flex items-center gap-2">
+                        <span class="text-2xl">💧</span> Community Liquidity Round
+                    </h3>
+                    <p class="mt-2 text-gray-300 text-sm leading-relaxed">
+                        Help deepen the PHANDS/WETH pool. Contributions are paired with PHAND and added
+                        directly to Uniswap liquidity. In return, you receive a locked LP-token staking
+                        position — verifiable on-chain, not a promise.
+                    </p>
+                    <a href="https://juicebox.money/v5/eth:105" target="_blank" class="inline-block mt-4 text-pink-300 hover:text-pink-200 font-medium text-sm transition-colors">
+                        Contribute on Juicebox →
+                    </a>
+                </div>
+
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold text-blue-300 flex items-center gap-2">
+                        <span class="text-2xl">🎯</span> Referral Program (Early‑Bird)
+                    </h3>
+                    <p class="mt-2 text-gray-300 text-sm leading-relaxed">
+                        Bring someone who locks LP tokens for 90 days and earn 5% of the first $200 of
+                        their stake — capped at a total program pool of 5,000 PHAND, first‑come,
+                        first‑served. Full terms on the
+                        <a href="referral.html" class="text-blue-300 hover:text-blue-200 underline">Referral page</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── MILESTONES ─── -->
+        <section class="mt-24 animate-[fadeUp_0.8s_ease-out_0.15s_both]" id="milestones">
+            <h2 class="text-3xl md:text-4xl font-bold text-center glow-text mb-12">Milestones &amp; Verification</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                <div class="glass rounded-xl p-5 roadmap-item done">
+                    <h3 class="text-lg font-semibold text-blue-300">Token deployed &amp; verified <span class="badge badge-done">Done</span></h3>
+                    <p class="mt-1 text-gray-400 text-sm">Ethereum Mainnet, Oct 2025. Verified on Etherscan.</p>
+                </div>
+                <div class="glass rounded-xl p-5 roadmap-item done">
+                    <h3 class="text-lg font-semibold text-blue-300">Staking contract v4 <span class="badge badge-done">Done</span></h3>
+                    <p class="mt-1 text-gray-400 text-sm">Security‑hardened, verified on Etherscan &amp; Sourcify.</p>
+                </div>
+                <div class="glass rounded-xl p-5 roadmap-item done">
+                    <h3 class="text-lg font-semibold text-blue-300">DefiLlama listed <span class="badge badge-done">Done</span></h3>
+                    <p class="mt-1 text-gray-400 text-sm">Track our TVL independently at DefiLlama.</p>
+                </div>
+                <div class="glass rounded-xl p-5 roadmap-item done">
+                    <h3 class="text-lg font-semibold text-blue-300">Community liquidity round <span class="badge badge-live">Live</span></h3>
+                    <p class="mt-1 text-gray-400 text-sm">Running via Juicebox, 45‑day funding cycle.</p>
+                </div>
+                <div class="glass rounded-xl p-5 roadmap-item">
+                    <h3 class="text-lg font-semibold text-blue-300">CoinMarketCap listing <span class="badge badge-pending">Pending</span></h3>
+                    <p class="mt-1 text-gray-400 text-sm">Application submitted, under review.</p>
+                </div>
+                <div class="glass rounded-xl p-5 roadmap-item">
+                    <h3 class="text-lg font-semibold text-blue-300">Growing community presence <span class="badge badge-pending">Ongoing</span></h3>
+                    <p class="mt-1 text-gray-400 text-sm">Active on X, Telegram &amp; Farcaster, building organic reach daily.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── ROADMAP ─── -->
+        <section class="mt-24 animate-[fadeUp_0.8s_ease-out_0.3s_both]" id="roadmap">
+            <h2 class="text-3xl md:text-4xl font-bold text-center glow-text mb-12">Roadmap</h2>
+            <div class="max-w-4xl mx-auto space-y-5">
+                <div class="glass rounded-xl p-6 roadmap-item done">
+                    <h3 class="text-xl font-semibold text-blue-300 flex flex-wrap items-center gap-2">
+                        Phase 1: Launch <span class="badge badge-done">Completed</span>
+                    </h3>
+                    <p class="mt-2 text-gray-300 text-sm leading-relaxed">
+                        Token deployed on Ethereum Mainnet (Oct 7, 2025). Initial Uniswap V2 and Balancer
+                        PHANDS/WETH pools created. Original staking dApp launched.
+                    </p>
+                </div>
+                <div class="glass rounded-xl p-6 roadmap-item done">
+                    <h3 class="text-xl font-semibold text-blue-300 flex flex-wrap items-center gap-2">
+                        Phase 2a: Security Hardening <span class="badge badge-done">Completed (July 2026)</span>
+                    </h3>
+                    <p class="mt-2 text-gray-300 text-sm leading-relaxed">
+                        Full internal review of the staking contract; issues identified and fixed across
+                        three iterations (unrestricted emergency‑withdraw, reward‑accounting bug, a
+                        lock‑bypass edge case on top‑up deposits). Final staking contract deployed with a
+                        dedicated rewards treasury, adjustable stake caps, no emergency‑withdraw capability,
+                        and an owner‑gifted locked‑stake mechanism. Unified dApp: Swap, Stake, and Add
+                        Liquidity in a single interface.
+                    </p>
+                </div>
+                <div class="glass rounded-xl p-6 roadmap-item">
+                    <h3 class="text-xl font-semibold text-blue-300 flex flex-wrap items-center gap-2">
+                        Phase 2b: Community Foundation <span class="badge badge-pending">Q3–Q4 2026</span>
+                    </h3>
+                    <p class="mt-2 text-gray-300 text-sm leading-relaxed">
+                        Onboard the first core holders through a controlled, capped airdrop and referral
+                        campaign. Organic liquidity growth via LP‑staking incentives. Continued transparent
+                        reporting of contract activity.
+                    </p>
+                </div>
+                <div class="glass rounded-xl p-6 roadmap-item">
+                    <h3 class="text-xl font-semibold text-blue-300 flex flex-wrap items-center gap-2">
+                        Phase 3: Stabilization &amp; Renounce <span class="badge badge-pending">Q1–Q2 2027</span>
+                    </h3>
+                    <p class="mt-2 text-gray-300 text-sm leading-relaxed">
+                        Ownership renounce on the token contract once Phase 2 distributions are complete.
+                        Third‑party security audit. Liquidity pools targeting $5,000–$50,000. Initial
+                        CEX‑listing outreach.
+                    </p>
+                </div>
+                <div class="glass rounded-xl p-6 roadmap-item">
+                    <h3 class="text-xl font-semibold text-blue-300 flex flex-wrap items-center gap-2">
+                        Phase 4: Expansion <span class="badge badge-pending">H2 2027+</span>
+                    </h3>
+                    <p class="mt-2 text-gray-300 text-sm leading-relaxed">
+                        DeFi integrations, broader holder base, potential governance exploration.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="gradient-footer mt-24 py-9 border-t border-blue-500/10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400 text-sm">&copy; 2026 PaperHands (PHANDS). All rights reserved.</p>
+            <div class="mt-3 flex flex-wrap justify-center gap-6">
+                <a href="https://t.me/phandsannouncement" target="_blank" class="text-gray-400 hover:text-blue-300 transition-colors text-sm">Telegram</a>
+                <a href="https://x.com/OfficialPHANDS" target="_blank" class="text-gray-400 hover:text-blue-300 transition-colors text-sm">X (Twitter)</a>
+                <a href="https://github.com/kozak26hu/Webpage" target="_blank" class="text-gray-400 hover:text-blue-300 transition-colors text-sm">GitHub</a>
+            </div>
+            <p class="mt-5 text-gray-500 text-xs max-w-xl mx-auto">
+                <span class="block">Cryptocurrency investments carry significant risk. Always do your own research.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js">
+    </script>
+    <script>
+        // ─── Price simulation (replace with real API later) ───
+        (function updatePrices() {
+            const base = 0.00012 + Math.random() * 0.00004;
+            const uniPrice = base;
+            const balPrice = base * 1.0012;
+            const diff = balPrice - uniPrice;
+
+            const uniEl = document.getElementById('uniPrice');
+            const balEl = document.getElementById('balPrice');
+            const diffEl = document.getElementById('priceDiff');
+            const currentEl = document.getElementById('currentPrice');
+
+            if (uniEl) uniEl.textContent = '$' + uniPrice.toFixed(8);
+            if (balEl) balEl.textContent = '$' + balPrice.toFixed(8);
+            if (diffEl) diffEl.textContent = '$' + diff.toFixed(10);
+            if (currentEl) currentEl.textContent = '$' + uniPrice.toFixed(8);
+        })();
+
+        // ─── Last updated timestamp ───
+        document.addEventListener('DOMContentLoaded', () => {
+            const span = document.querySelector('#lastUpdated span');
+            if (span) {
+                const now = new Date();
+                span.textContent = now.toLocaleString('en-US', {
+                    timeZone: 'Europe/Budapest',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+            }
+        });
+
+        // ─── Wallet connection (MetaMask) ───
+        document.getElementById('connectWallet')?.addEventListener('click', async function() {
+            const btn = this;
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '⏳ Connecting…';
+            btn.disabled = true;
+
+            try {
+                if (typeof window.ethereum !== 'undefined') {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    btn.innerHTML = '✅ Connected';
+                    btn.className =
+                    'btn-primary text-white px-6 py-3.5 rounded-2xl flex items-center gap-2.5 bg-green-600 hover:bg-green-500';
+                } else {
+                    alert('MetaMask not found! Please install it from https://metamask.io/');
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                console.error(err);
+                btn.innerHTML = '❌ Error';
+                btn.disabled = false;
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                }, 2500);
+            }
+        });
+
+        console.log('🚀 PaperHands — Modern UI loaded.');
+    </script>
+</body>
+</html>
