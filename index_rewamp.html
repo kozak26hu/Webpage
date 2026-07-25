@@ -37,7 +37,6 @@
             background: linear-gradient(180deg, #2563eb, #7c3aed);
             border-radius: 3px;
         }
-
         /* ═══════════════════════════════════════════
                ANIMATIONS
                ═══════════════════════════════════════════ */
@@ -103,7 +102,6 @@
                 transform: translate(30px, 40px) scale(1.05);
             }
         }
-
         .animate-on-view {
             opacity: 0;
             transform: translateY(40px);
@@ -113,7 +111,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
         /* ═══════════════════════════════════════════
                HÁTTÉR — RÉSZECSKE RENDSZER
                ═══════════════════════════════════════════ */
@@ -176,7 +173,6 @@
                 radial-gradient(1.5px 1.5px at 55% 45%, rgba(255, 255, 255, 0.15), transparent);
             background-size: 200px 200px;
         }
-
         /* ═══════════════════════════════════════════
                NAV
                ═══════════════════════════════════════════ */
@@ -219,7 +215,6 @@
         .navbar a:hover::after {
             width: 100%;
         }
-
         /* ═══════════════════════════════════════════
                HERO
                ═══════════════════════════════════════════ */
@@ -232,6 +227,15 @@
             justify-content: center;
             padding: 2rem 1.5rem 4rem;
             text-align: center;
+        }
+        .hero .logo-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.35);
+            margin-bottom: 1.5rem;
         }
         .hero .badge-top {
             display: inline-flex;
@@ -246,7 +250,7 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: #60a5fa;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             backdrop-filter: blur(10px);
         }
         .hero .badge-top .dot {
@@ -278,7 +282,6 @@
             font-weight: 400;
             letter-spacing: 0.01em;
         }
-
         /* ─── WELCOME SECTION ─── */
         .welcome-section {
             margin-top: 3rem;
@@ -309,7 +312,6 @@
             color: #60a5fa;
             font-weight: 700;
         }
-
         .hero .contract-box {
             display: inline-flex;
             align-items: center;
@@ -347,7 +349,6 @@
             color: #60a5fa;
             background: rgba(59, 130, 246, 0.1);
         }
-
         .hero .btn-group {
             display: flex;
             flex-wrap: wrap;
@@ -395,7 +396,6 @@
             border-color: #60a5fa;
             transform: translateY(-3px);
         }
-
         .hero .quick-links {
             display: flex;
             flex-wrap: wrap;
@@ -423,7 +423,6 @@
             color: #eef2f8;
             transform: translateY(-2px);
         }
-
         /* ═══════════════════════════════════════════
                TICKER
                ═══════════════════════════════════════════ */
@@ -474,7 +473,6 @@
         .ticker .item .value.negative {
             color: #f87171;
         }
-
         /* ═══════════════════════════════════════════
                GLASS CARD
                ═══════════════════════════════════════════ */
@@ -512,7 +510,6 @@
             margin-bottom: 0.75rem;
             display: block;
         }
-
         /* ═══════════════════════════════════════════
                SECTIONS
                ═══════════════════════════════════════════ */
@@ -552,7 +549,6 @@
             margin-top: 0.75rem;
             font-size: 1.05rem;
         }
-
         /* ═══════════════════════════════════════════
                TIMELINE
                ═══════════════════════════════════════════ */
@@ -632,7 +628,6 @@
             margin-top: 0.4rem;
             line-height: 1.7;
         }
-
         /* ═══════════════════════════════════════════
                FOOTER
                ═══════════════════════════════════════════ */
@@ -668,7 +663,6 @@
             opacity: 0.5;
             line-height: 1.6;
         }
-
         /* ═══════════════════════════════════════════
                RESPONSIVE
                ═══════════════════════════════════════════ */
@@ -721,7 +715,6 @@
     </style>
 </head>
 <body>
-
     <!-- ═══ HÁTTÉR ═══ -->
     <div class="bg-canvas">
         <div class="grid"></div>
@@ -743,19 +736,18 @@
     <!-- ═══ HERO ═══ -->
     <header class="hero" id="home">
         <div>
-
+            <img src="logo.png" alt="PaperHands Logo" class="logo-img" onerror="this.style.display='none'">
             <div class="badge-top">
                 <span class="dot"></span>
                 Ethereum Mainnet · Live
             </div>
-
             <h1>PaperHands</h1>
             <p class="subtitle">
                 The Weak Hands Revolution — ERC‑20 on Ethereum.
                 Trade, stake, and build the future of community liquidity.
             </p>
 
-            <!-- ═══ WELCOME SECTION (visszakerült!) ═══ -->
+            <!-- WELCOME -->
             <div class="welcome-section">
                 <h2>Welcome to PaperHands</h2>
                 <p>
@@ -780,47 +772,44 @@
                 </button>
                 <a href="https://app.uniswap.org/swap?inputCurrency=WETH&outputCurrency=0x11157Da1fC6dCfd58b50ed79082183b2c6176245" target="_blank" class="btn btn-outline">Uniswap</a>
                 <a href="https://balancer.fi/swap/ethereum/WETH/0x11157da1fc6dcfd58b50ed79082183b2c6176245" target="_blank" class="btn btn-outline">Balancer</a>
-                <a href="https://phands-staking-dapp.vercel.app/" target="_blank" class="btn btn-ghost">🚀 dApp</a>
+                <a href="https://phands-staking-dapp.vercel.app/" target="_blank" class="btn btn-ghost">🚀 dApp (Swap / Stake / LP)</a>
+                <a href="https://apespace.io/eth/0x29b2b1450dfe8d856fa42250437b1e827435f82e" target="_blank" class="btn btn-ghost">🐵 ApeSpace</a>
             </div>
 
             <div class="quick-links">
                 <a href="https://juicebox.money/v5/eth%3A105" target="_blank">💧 Liquidity Round</a>
                 <a href="https://defillama.com/protocol/paperhands" target="_blank">📊 DefiLlama</a>
-                <a href="https://apespace.io/eth/0x29b2b1450dfe8d856fa42250437b1e827435f82e" target="_blank">🐵 ApeSpace</a>
                 <a href="referral.html">🎯 Referral</a>
                 <a href="whitepaper.pdf" target="_blank">📄 Whitepaper</a>
             </div>
 
-            <!-- ═══ TICKER ═══ -->
+            <!-- TICKER -->
             <div class="ticker-wrapper">
                 <div class="ticker-label">📈 Current PHANDS Prices</div>
                 <div class="ticker">
                     <div class="item">
                         <div class="label">Uniswap V2</div>
-                        <div class="value" id="uniPrice">$0.00012450</div>
+                        <div class="value" id="uniPrice">Loading...</div>
                     </div>
                     <div class="item">
                         <div class="label">Balancer V3</div>
-                        <div class="value" id="balPrice">$0.00012468</div>
+                        <div class="value" id="balPrice">Loading...</div>
                     </div>
                     <div class="item">
                         <div class="label">Difference</div>
-                        <div class="value positive" id="priceDiff">+0.18%</div>
+                        <div class="value" id="priceDiff">Loading...</div>
                     </div>
                 </div>
             </div>
-
             <p style="margin-top:1.5rem;font-size:0.7rem;color:#475569;">
                 Last updated: <span id="lastUpdated">Loading…</span>
             </p>
-
         </div>
     </header>
 
     <!-- ═══ INFORMÁCIÓS KÁRTYÁK ═══ -->
     <section>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
-
             <div class="glass-card animate-on-view">
                 <span class="icon">💧</span>
                 <h3 style="font-size:1.2rem;font-weight:700;color:#eef2f8;">Community Liquidity Round</h3>
@@ -833,7 +822,6 @@
                     Contribute on Juicebox →
                 </a>
             </div>
-
             <div class="glass-card animate-on-view">
                 <span class="icon">🎯</span>
                 <h3 style="font-size:1.2rem;font-weight:700;color:#eef2f8;">Referral Program (Early‑Bird)</h3>
@@ -844,7 +832,6 @@
                     <a href="referral.html" style="color:#60a5fa;text-decoration:none;">Referral page</a>.
                 </p>
             </div>
-
         </div>
     </section>
 
@@ -853,25 +840,21 @@
         <span class="section-label">✓ Verification</span>
         <h2 class="section-title">Milestones</h2>
         <p class="section-desc">Every step is transparent and verifiable on‑chain.</p>
-
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2rem;">
-
             <div class="glass-card animate-on-view" style="padding:1.2rem 1.5rem;">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="font-weight:600;color:#eef2f8;font-size:0.9rem;">Token deployed</span>
                     <span style="font-size:0.6rem;background:#22c55e20;color:#4ade80;padding:0.1rem 0.6rem;border-radius:100px;border:1px solid #22c55e30;">Done</span>
                 </div>
-                <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">Ethereum Mainnet, Oct 2025</p>
+                <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">Ethereum Mainnet, Oct 2025 · Verified on Etherscan</p>
             </div>
-
             <div class="glass-card animate-on-view" style="padding:1.2rem 1.5rem;">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="font-weight:600;color:#eef2f8;font-size:0.9rem;">Staking v4</span>
                     <span style="font-size:0.6rem;background:#22c55e20;color:#4ade80;padding:0.1rem 0.6rem;border-radius:100px;border:1px solid #22c55e30;">Done</span>
                 </div>
-                <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">Security‑hardened, verified</p>
+                <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">Security-hardened, verified on Etherscan &amp; Sourcify</p>
             </div>
-
             <div class="glass-card animate-on-view" style="padding:1.2rem 1.5rem;">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="font-weight:600;color:#eef2f8;font-size:0.9rem;">DefiLlama</span>
@@ -879,15 +862,13 @@
                 </div>
                 <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">TVL tracked independently</p>
             </div>
-
             <div class="glass-card animate-on-view" style="padding:1.2rem 1.5rem;">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="font-weight:600;color:#eef2f8;font-size:0.9rem;">Liquidity round</span>
                     <span style="font-size:0.6rem;background:#3b82f620;color:#60a5fa;padding:0.1rem 0.6rem;border-radius:100px;border:1px solid #3b82f640;">Live</span>
                 </div>
-                <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">Juicebox, 45‑day cycle</p>
+                <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">Juicebox, 45-day funding cycle</p>
             </div>
-
             <div class="glass-card animate-on-view" style="padding:1.2rem 1.5rem;">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="font-weight:600;color:#eef2f8;font-size:0.9rem;">CoinMarketCap</span>
@@ -895,7 +876,6 @@
                 </div>
                 <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">Application submitted</p>
             </div>
-
             <div class="glass-card animate-on-view" style="padding:1.2rem 1.5rem;">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="font-weight:600;color:#eef2f8;font-size:0.9rem;">Community</span>
@@ -903,7 +883,6 @@
                 </div>
                 <p style="color:#64748b;font-size:0.75rem;margin-top:0.3rem;">X, Telegram, Farcaster</p>
             </div>
-
         </div>
     </section>
 
@@ -912,39 +891,32 @@
         <span class="section-label">🗺️</span>
         <h2 class="section-title">Roadmap</h2>
         <p class="section-desc">Our journey from launch to full decentralization.</p>
-
         <div class="timeline" style="margin-top:2rem;">
-
             <div class="timeline-item done animate-on-view">
                 <div class="phase">Phase 1 <span class="status done">Completed</span></div>
                 <h4>Launch</h4>
                 <p>Token deployed on Ethereum Mainnet (Oct 7, 2025). Initial Uniswap V2 and Balancer PHANDS/WETH pools created. Original staking dApp launched.</p>
             </div>
-
             <div class="timeline-item done animate-on-view">
                 <div class="phase">Phase 2a <span class="status done">Completed (July 2026)</span></div>
                 <h4>Security Hardening</h4>
                 <p>Full internal review of the staking contract; issues identified and fixed across three iterations (unrestricted emergency-withdraw, reward-accounting bug, a lock-bypass edge case on top-up deposits). Final staking contract deployed with a dedicated rewards treasury, adjustable stake caps, no emergency-withdraw capability, and an owner-gifted locked-stake mechanism (used to guarantee that contributions raised via the community funding round are locked into liquidity on the contributor's behalf). Unified dApp: Swap, Stake, and Add Liquidity now in a single interface.</p>
             </div>
-
             <div class="timeline-item animate-on-view">
                 <div class="phase">Phase 2b <span class="status">Q3–Q4 2026</span></div>
                 <h4>Community Foundation</h4>
                 <p>Onboard the first core holders through a controlled, capped airdrop and referral campaign. Organic liquidity growth via LP-staking incentives. Continued transparent reporting of contract activity.</p>
             </div>
-
             <div class="timeline-item animate-on-view">
                 <div class="phase">Phase 3 <span class="status">Q1–Q2 2027</span></div>
                 <h4>Stabilization &amp; Renounce</h4>
                 <p>Ownership renounce on the token contract once Phase 2 distributions are complete. Third-party security audit. Liquidity pools targeting $5,000–$50,000. Initial CEX-listing outreach.</p>
             </div>
-
             <div class="timeline-item animate-on-view">
                 <div class="phase">Phase 4 <span class="status">H2 2027+</span></div>
                 <h4>Expansion</h4>
                 <p>DeFi integrations, broader holder base, potential governance exploration.</p>
             </div>
-
         </div>
     </section>
 
@@ -962,8 +934,7 @@
     </footer>
 
     <!-- ═══ JAVASCRIPT ═══ -->
-    <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js"></script>
     <script>
         // ─── PRICE SIMULATION ───
         (function updatePrices() {
@@ -972,12 +943,10 @@
             const balPrice = base * 1.0012;
             const diff = balPrice - uniPrice;
             const diffPercent = ((diff / uniPrice) * 100);
-
             const uniEl = document.getElementById('uniPrice');
             const balEl = document.getElementById('balPrice');
             const diffEl = document.getElementById('priceDiff');
             const currentEl = document.getElementById('currentPrice');
-
             if (uniEl) uniEl.textContent = '$' + uniPrice.toFixed(8);
             if (balEl) balEl.textContent = '$' + balPrice.toFixed(8);
             if (diffEl) {
@@ -987,7 +956,7 @@
             if (currentEl) currentEl.textContent = '$' + uniPrice.toFixed(8);
         })();
 
-        // ─── LAST UPDATED ───
+        // ─── LAST UPDATED + SCROLL ANIMATION ───
         document.addEventListener('DOMContentLoaded', () => {
             const span = document.getElementById('lastUpdated');
             if (span) {
@@ -1003,7 +972,6 @@
                 });
             }
 
-            // ─── SCROLL ANIMATION ───
             const observers = document.querySelectorAll('.animate-on-view');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1021,13 +989,11 @@
             const originalHtml = btn.innerHTML;
             btn.innerHTML = '⏳ Connecting…';
             btn.disabled = true;
-
             try {
                 if (typeof window.ethereum !== 'undefined') {
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
                     btn.innerHTML = '✅ Connected';
-                    btn.className =
-                        'btn btn-primary text-white px-6 py-3 rounded-2xl font-semibold bg-green-600 hover:bg-green-500';
+                    btn.style.background = 'linear-gradient(135deg, #16a34a, #22c55e)';
                 } else {
                     alert('MetaMask not found! Please install it from https://metamask.io/');
                     btn.innerHTML = originalHtml;
@@ -1044,8 +1010,7 @@
             }
         });
 
-        console.log('🚀 PaperHands — Modern UI loaded successfully!');
-        console.log('📊 All original functions are working.');
+        console.log('🚀 PaperHands — Combined modern UI loaded successfully!');
     </script>
 </body>
 </html>
