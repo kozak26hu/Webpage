@@ -278,6 +278,38 @@
             font-weight: 400;
             letter-spacing: 0.01em;
         }
+
+        /* ─── WELCOME SECTION ─── */
+        .welcome-section {
+            margin-top: 3rem;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .welcome-section h2 {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #f0f4ff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        .welcome-section p {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .welcome-section p .price-highlight {
+            color: #60a5fa;
+            font-weight: 700;
+        }
+
         .hero .contract-box {
             display: inline-flex;
             align-items: center;
@@ -321,7 +353,7 @@
             flex-wrap: wrap;
             gap: 0.8rem;
             justify-content: center;
-            margin-top: 2.2rem;
+            margin-top: 2rem;
         }
         .hero .btn-group .btn {
             display: inline-flex;
@@ -395,20 +427,30 @@
         /* ═══════════════════════════════════════════
                TICKER
                ═══════════════════════════════════════════ */
+        .ticker-wrapper {
+            margin-top: 3rem;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ticker-wrapper .ticker-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
         .ticker {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 1.5rem 3rem;
-            margin-top: 3rem;
-            padding: 1.5rem 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 80px;
-            backdrop-filter: blur(10px);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
         .ticker .item {
             text-align: center;
@@ -636,8 +678,6 @@
                 justify-content: center;
             }
             .ticker {
-                border-radius: 24px;
-                padding: 1rem;
                 gap: 1rem;
             }
             .ticker .item .value {
@@ -670,6 +710,12 @@
             }
             .navbar a {
                 font-size: 0.7rem;
+            }
+            .welcome-section {
+                padding: 1rem;
+            }
+            .ticker-wrapper {
+                padding: 1rem;
             }
         }
     </style>
@@ -709,6 +755,16 @@
                 Trade, stake, and build the future of community liquidity.
             </p>
 
+            <!-- ═══ WELCOME SECTION (visszakerült!) ═══ -->
+            <div class="welcome-section">
+                <h2>Welcome to PaperHands</h2>
+                <p>
+                    PaperHands (PHANDS) is an ERC-20 token on Ethereum, currently trading at
+                    <span class="price-highlight" id="currentPrice">Loading...</span> USD
+                    across Uniswap V2 and Balancer.
+                </p>
+            </div>
+
             <div class="contract-box">
                 <span style="color:#64748b;font-weight:400;font-family:'Inter',sans-serif;font-size:0.7rem;">Contract</span>
                 <code>0x11157Da1fC6dCfd58b50ed79082183b2c6176245</code>
@@ -735,19 +791,22 @@
                 <a href="whitepaper.pdf" target="_blank">📄 Whitepaper</a>
             </div>
 
-            <!-- TICKER -->
-            <div class="ticker">
-                <div class="item">
-                    <div class="label">Uniswap V2</div>
-                    <div class="value" id="uniPrice">$0.00012450</div>
-                </div>
-                <div class="item">
-                    <div class="label">Balancer V3</div>
-                    <div class="value" id="balPrice">$0.00012468</div>
-                </div>
-                <div class="item">
-                    <div class="label">Difference</div>
-                    <div class="value positive" id="priceDiff">+0.18%</div>
+            <!-- ═══ TICKER ═══ -->
+            <div class="ticker-wrapper">
+                <div class="ticker-label">📈 Current PHANDS Prices</div>
+                <div class="ticker">
+                    <div class="item">
+                        <div class="label">Uniswap V2</div>
+                        <div class="value" id="uniPrice">$0.00012450</div>
+                    </div>
+                    <div class="item">
+                        <div class="label">Balancer V3</div>
+                        <div class="value" id="balPrice">$0.00012468</div>
+                    </div>
+                    <div class="item">
+                        <div class="label">Difference</div>
+                        <div class="value positive" id="priceDiff">+0.18%</div>
+                    </div>
                 </div>
             </div>
 
@@ -906,7 +965,7 @@
     <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js">
     </script>
     <script>
-        // ─── PRICE SIMULATION (működik mint az eredeti app.js) ───
+        // ─── PRICE SIMULATION ───
         (function updatePrices() {
             const base = 0.00012 + Math.random() * 0.00004;
             const uniPrice = base;
@@ -930,7 +989,7 @@
 
         // ─── LAST UPDATED ───
         document.addEventListener('DOMContentLoaded', () => {
-            const span = document.querySelector('#lastUpdated');
+            const span = document.getElementById('lastUpdated');
             if (span) {
                 const now = new Date();
                 span.textContent = now.toLocaleString('en-US', {
