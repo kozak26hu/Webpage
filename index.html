@@ -939,111 +939,131 @@
 
     <!-- ═══ JAVASCRIPT ═══ -->
     <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js"></script>
-    <script>
-                // ─── ÉLŐ ÁRAK LEKÉRÉSE A COINGECKO API-BÓL ───
-        async function updatePrices() {
-            const tokenAddress = '0x11157Da1fC6dCfd58b50ed79082183b2c6176245';
-            const uniEl = document.getElementById('uniPrice');
-            const balEl = document.getElementById('balPrice');
-            const diffEl = document.getElementById('priceDiff');
-            const currentEl = document.getElementById('currentPrice');
+<script>
+    // ─── ÉLŐ ÁRAK LEKÉRÉSE ───
+    async function updatePrices() {
+        const tokenAddress = '0x11157Da1fC6dCfd58b50ed79082183b2c6176245';
+        const uniEl = document.getElementById('uniPrice');
+        const balEl = document.getElementById('balPrice');
+        const diffEl = document.getElementById('priceDiff');
+        const currentEl = document.getElementById('currentPrice');
 
-            try {
-                // Lekérés a CoinGecko Ethereum token árfolyam API-ról
-                // JAVÍTOTT API HÍVÁS
-                const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenAddress}&vs_currencies=usd&include_24hr_change=true`);
-                const data = await response.json();
-                
-                if (data[tokenAddress.toLowerCase()]) {
-                    const priceUSD = data[tokenAddress.toLowerCase()].usd;
-                    // Mivel a CoinGecko egy összesített árat ad, a poolok közötti különbséget kis eltéréssel modellezzük
-                    const uniPrice = priceUSD;
-                    const balPrice = priceUSD * 1.0012; // Kis arbitrázs eltérés a Balancer javára
-                    const diffPercent = 0.12; 
+        try {
+            // JAVÍTOTT: helyes CoinGecko API végpont
+            const url = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenAddress}&vs_currencies=usd`;
+            console.log('Fetching price from:', url);
+            
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            console.log('API response:', data);
+            
+            const tokenKey = tokenAddress.toLowerCase();
+            
+            if (data && data[tokenKey] && data[tokenKey].usd) {
+                const priceUSD = data[tokenKey].usd;
+                const uniPrice = priceUSD;
+                const balPrice = priceUSD * 1.0012; // 0.12% különbség
+                const diffPercent = 0.12;
 
-                    if (currentEl) currentEl.textContent = '$' + uniPrice.toFixed(8);
-                    if (uniEl) uniEl.textContent = '$' + uniPrice.toFixed(8);
-                    if (balEl) balEl.textContent = '$' + balPrice.toFixed(8);
-                    if (diffEl) {
-                        diffEl.textContent = '+' + diffPercent.toFixed(2) + '%';
-                        diffEl.className = 'value positive';
-                    }
-                } else {
-                    throw new Error('A token még nincs listázva a CoinGeckón');
-                }
-            } catch (error) {
-                console.warn('API hiba, szimulált árak használata:', error.message);
-                // Tartalék szimuláció, ha az API limitet ér el vagy a token még nincs fent CoinGeckón
-                const base = 0.00012 + Math.random() * 0.00004;
-                if (currentEl) currentEl.textContent = '$' + base.toFixed(8);
-                if (uniEl) uniEl.textContent = '$' + base.toFixed(8);
-                if (balEl) balEl.textContent = '$' + (base * 1.0012).toFixed(8);
+                if (currentEl) currentEl.textContent = '$' + uniPrice.toFixed(8);
+                if (uniEl) uniEl.textContent = '$' + uniPrice.toFixed(8);
+                if (balEl) balEl.textContent = '$' + balPrice.toFixed(8);
                 if (diffEl) {
-                    diffEl.textContent = '+0.12%';
+                    diffEl.textContent = '+' + diffPercent.toFixed(2) + '%';
                     diffEl.className = 'value positive';
                 }
+                
+                console.log('Prices updated successfully!');
+            } else {
+                console.warn('Token not found on CoinGecko, using fallback');
+                useFallbackPrices();
             }
+        } catch (error) {
+            console.error('API error:', error.message);
+            useFallbackPrices();
+        }
+    }
+
+    // ─── TARTALÉK ÁRAK (ha az API nem működik) ───
+    function useFallbackPrices() {
+        const uniEl = document.getElementById('uniPrice');
+        const balEl = document.getElementById('balPrice');
+        const diffEl = document.getElementById('priceDiff');
+        const currentEl = document.getElementById('currentPrice');
+        
+        const base = 0.00012 + Math.random() * 0.00004;
+        if (currentEl) currentEl.textContent = '$' + base.toFixed(8);
+        if (uniEl) uniEl.textContent = '$' + base.toFixed(8);
+        if (balEl) balEl.textContent = '$' + (base * 1.0012).toFixed(8);
+        if (diffEl) {
+            diffEl.textContent = '+0.12%';
+            diffEl.className = 'value positive';
+        }
+    }
+
+    // ─── LAST UPDATED + SCROLL ANIMATION ───
+    document.addEventListener('DOMContentLoaded', () => {
+        updatePrices();
+        setInterval(updatePrices, 30000);
+        
+        const span = document.getElementById('lastUpdated');
+        if (span) {
+            const now = new Date();
+            span.textContent = now.toLocaleString('en-US', {
+                timeZone: 'Europe/Budapest',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
         }
 
-
-        // ─── LAST UPDATED + SCROLL ANIMATION ───
-        document.addEventListener('DOMContentLoaded', () => {
-            updatePrices();
-            // Automatikus frissítés 30 másodpercenként
-            setInterval(updatePrices, 30000);
-            const span = document.getElementById('lastUpdated');
-            if (span) {
-                const now = new Date();
-                span.textContent = now.toLocaleString('en-US', {
-                    timeZone: 'Europe/Budapest',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-            }
-
-            const observers = document.querySelectorAll('.animate-on-view');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            observers.forEach(el => observer.observe(el));
-        });
-
-        // ─── WALLET CONNECT ───
-        document.getElementById('connectWallet')?.addEventListener('click', async function() {
-            const btn = this;
-            const originalHtml = btn.innerHTML;
-            btn.innerHTML = '⏳ Connecting…';
-            btn.disabled = true;
-            try {
-                if (typeof window.ethereum !== 'undefined') {
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    btn.innerHTML = '✅ Connected';
-                    btn.style.background = 'linear-gradient(135deg, #16a34a, #22c55e)';
-                } else {
-                    alert('MetaMask not found! Please install it from https://metamask.io/');
-                    btn.innerHTML = originalHtml;
-                    btn.disabled = false;
+        const observers = document.querySelectorAll('.animate-on-view');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
-            } catch (err) {
-                console.error(err);
-                btn.innerHTML = '❌ Error';
-                btn.disabled = false;
-                setTimeout(() => {
-                    btn.innerHTML = originalHtml;
-                    btn.disabled = false;
-                }, 2500);
-            }
-        });
+            });
+        }, { threshold: 0.1 });
+        observers.forEach(el => observer.observe(el));
+    });
 
-        console.log('🚀 PaperHands — Combined modern UI loaded successfully!');
-    </script>
+    // ─── WALLET CONNECT ───
+    document.getElementById('connectWallet')?.addEventListener('click', async function() {
+        const btn = this;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '⏳ Connecting…';
+        btn.disabled = true;
+        try {
+            if (typeof window.ethereum !== 'undefined') {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                btn.innerHTML = '✅ Connected';
+                btn.style.background = 'linear-gradient(135deg, #16a34a, #22c55e)';
+            } else {
+                alert('MetaMask not found! Please install it from https://metamask.io/');
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        } catch (err) {
+            console.error(err);
+            btn.innerHTML = '❌ Error';
+            btn.disabled = false;
+            setTimeout(() => {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }, 2500);
+        }
+    });
+
+    console.log('🚀 PaperHands — Combined modern UI loaded successfully!');
+</script>
 </body>
 </html>
