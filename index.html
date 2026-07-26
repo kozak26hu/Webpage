@@ -732,21 +732,21 @@
         }
 
         .mascot-img {
-            position: absolute;
-            right: 4%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 340px;
-            max-width: 38vw;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-            z-index: 2;
-            transition: transform 0.4s ease;
-        }
-
-        .mascot-img:hover {
-            transform: translateY(-50%) scale(1.03);
-        }
+                position: absolute;
+                right: 3%;
+                top: 18%;                    /* ← ez emeli feljebb */
+                transform: none;            /* kivettük a középre igazítást */
+                width: 320px;
+                max-width: 36vw;
+                border-radius: 24px;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+                z-index: 2;
+                transition: transform 0.4s ease;
+            }
+            
+            .mascot-img:hover {
+                transform: scale(1.03);
+            }
 
         .hero-content {
             position: relative;
@@ -763,18 +763,18 @@
                 width: 52px;
                 height: 52px;
             }
-
+        
             .mascot-img {
                 position: relative;
                 right: auto;
                 top: auto;
                 transform: none;
-                width: 260px;
-                max-width: 80%;
-                margin: 1.5rem auto 0;
+                width: 240px;
+                max-width: 75%;
+                margin: 1.2rem auto 0;
                 display: block;
             }
-
+        
             .hero-content {
                 max-width: 100%;
             }
