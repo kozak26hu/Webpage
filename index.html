@@ -940,62 +940,79 @@
     <!-- ═══ JAVASCRIPT ═══ -->
     <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js"></script>
 <script>
-    // ─── ÉLŐ ÁRAK LEKÉRÉSE ───
+    // ─── ÉLŐ ÁRAK LEKÉRÉSE (DexScreener) ───
     async function updatePrices() {
         const tokenAddress = '0x11157Da1fC6dCfd58b50ed79082183b2c6176245';
         const uniEl = document.getElementById('uniPrice');
         const balEl = document.getElementById('balPrice');
         const diffEl = document.getElementById('priceDiff');
         const currentEl = document.getElementById('currentPrice');
+        const lastEl = document.getElementById('lastUpdated');
 
         try {
-            // JAVÍTOTT: helyes CoinGecko API végpont
-            const url = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenAddress}&vs_currencies=usd`;
-            console.log('Fetching price from:', url);
-            
-            const response = await fetch(url);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            console.log('API response:', data);
-            
-            const tokenKey = tokenAddress.toLowerCase();
-            
-            if (data && data[tokenKey] && data[tokenKey].usd) {
-                const priceUSD = data[tokenKey].usd;
-                const uniPrice = priceUSD;
-                const balPrice = priceUSD * 1.0012; // 0.12% különbség
-                const diffPercent = 0.12;
+            const url = `https://api.dexscreener.com/latest/dex/tokens/${tokenAddress}`;
+            console.log('Fetching price from DexScreener:', url);
 
-                if (currentEl) currentEl.textContent = '$' + uniPrice.toFixed(8);
-                if (uniEl) uniEl.textContent = '$' + uniPrice.toFixed(8);
-                if (balEl) balEl.textContent = '$' + balPrice.toFixed(8);
-                if (diffEl) {
-                    diffEl.textContent = '+' + diffPercent.toFixed(2) + '%';
-                    diffEl.className = 'value positive';
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const data = await response.json();
+            console.log('DexScreener response:', data);
+
+            if (data.pairs && data.pairs.length > 0) {
+                // Legnagyobb likviditású párt vesszük
+                const pairs = data.pairs.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0));
+                const mainPair = pairs[0];
+                const priceUSD = parseFloat(mainPair.priceUsd);
+
+                if (!isNaN(priceUSD) && priceUSD > 0) {
+                    // Uniswap és Balancer különbség szimuláció (vagy valós párok keresése)
+                    const uniPair = pairs.find(p => p.dexId === 'uniswap') || mainPair;
+                    const balPair = pairs.find(p => p.dexId === 'balancer') || mainPair;
+
+                    const uniPrice = parseFloat(uniPair.priceUsd) || priceUSD;
+                    const balPrice = parseFloat(balPair.priceUsd) || priceUSD * 1.0012;
+                    const diffPercent = ((balPrice - uniPrice) / uniPrice) * 100;
+
+                    if (currentEl) currentEl.textContent = '$' + uniPrice.toFixed(8);
+                    if (uniEl) uniEl.textContent = '$' + uniPrice.toFixed(8);
+                    if (balEl) balEl.textContent = '$' + balPrice.toFixed(8);
+
+                    if (diffEl) {
+                        const sign = diffPercent >= 0 ? '+' : '';
+                        diffEl.textContent = sign + diffPercent.toFixed(2) + '%';
+                        diffEl.className = 'value ' + (diffPercent >= 0 ? 'positive' : 'negative');
+                    }
+
+                    if (lastEl) {
+                        lastEl.textContent = new Date().toLocaleString('en-US', {
+                            timeZone: 'Europe/Budapest',
+                            year: 'numeric', month: 'short', day: 'numeric',
+                            hour: '2-digit', minute: '2-digit', second: '2-digit'
+                        });
+                    }
+
+                    console.log('Prices updated successfully!', uniPrice);
+                    return;
                 }
-                
-                console.log('Prices updated successfully!');
-            } else {
-                console.warn('Token not found on CoinGecko, using fallback');
-                useFallbackPrices();
             }
+
+            console.warn('No valid pairs found, using fallback');
+            useFallbackPrices();
         } catch (error) {
             console.error('API error:', error.message);
             useFallbackPrices();
         }
     }
 
-    // ─── TARTALÉK ÁRAK (ha az API nem működik) ───
+    // ─── TARTALÉK ÁRAK ───
     function useFallbackPrices() {
         const uniEl = document.getElementById('uniPrice');
         const balEl = document.getElementById('balPrice');
         const diffEl = document.getElementById('priceDiff');
         const currentEl = document.getElementById('currentPrice');
-        
+        const lastEl = document.getElementById('lastUpdated');
+
         const base = 0.00012 + Math.random() * 0.00004;
         if (currentEl) currentEl.textContent = '$' + base.toFixed(8);
         if (uniEl) uniEl.textContent = '$' + base.toFixed(8);
@@ -1004,33 +1021,25 @@
             diffEl.textContent = '+0.12%';
             diffEl.className = 'value positive';
         }
+        if (lastEl) {
+            lastEl.textContent = new Date().toLocaleString('en-US', {
+                timeZone: 'Europe/Budapest',
+                year: 'numeric', month: 'short', day: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            }) + ' (fallback)';
+        }
     }
 
-    // ─── LAST UPDATED + SCROLL ANIMATION ───
+    // ─── INDÍTÁS ───
     document.addEventListener('DOMContentLoaded', () => {
         updatePrices();
         setInterval(updatePrices, 30000);
-        
-        const span = document.getElementById('lastUpdated');
-        if (span) {
-            const now = new Date();
-            span.textContent = now.toLocaleString('en-US', {
-                timeZone: 'Europe/Budapest',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-        }
 
+        // Scroll animation
         const observers = document.querySelectorAll('.animate-on-view');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.1 });
         observers.forEach(el => observer.observe(el));
@@ -1063,7 +1072,7 @@
         }
     });
 
-    console.log('🚀 PaperHands — Combined modern UI loaded successfully!');
+    console.log('🚀 PaperHands — price fetch fixed (DexScreener)');
 </script>
 </body>
 </html>
