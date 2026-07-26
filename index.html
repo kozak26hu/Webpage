@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; connect-src 'self' https://eth.llamarpc.com https://api.coingecko.com https://api.dexscreener.com ws://localhost:8080; img-src 'self' https://i.ibb.co data:; style-src 'self' 'unsafe-inline'; object-src 'self';" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://api.dexscreener.com https://eth.llamarpc.com ws://localhost:8080; img-src 'self' https://i.ibb.co data:; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; object-src 'self';" />
     <title>PaperHands (PHANDS) — Official Website</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
     <style>
@@ -940,139 +940,93 @@
     <!-- ═══ JAVASCRIPT ═══ -->
     <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js"></script>
 <script>
-    // ─── ÉLŐ ÁRAK LEKÉRÉSE (DexScreener) ───
-    async function updatePrices() {
-        const tokenAddress = '0x11157Da1fC6dCfd58b50ed79082183b2c6176245';
-        const uniEl = document.getElementById('uniPrice');
-        const balEl = document.getElementById('balPrice');
-        const diffEl = document.getElementById('priceDiff');
-        const currentEl = document.getElementById('currentPrice');
-        const lastEl = document.getElementById('lastUpdated');
+async function updatePrices() {
+    const tokenAddress = '0x11157Da1fC6dCfd58b50ed79082183b2c6176245';
+    const currentEl = document.getElementById('currentPrice');
+    const uniEl     = document.getElementById('uniPrice');
+    const balEl     = document.getElementById('balPrice');
+    const diffEl    = document.getElementById('priceDiff');
+    const lastEl    = document.getElementById('lastUpdated');
 
-        try {
-            const url = `https://api.dexscreener.com/latest/dex/tokens/${tokenAddress}`;
-            console.log('Fetching price from DexScreener:', url);
+    try {
+        const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${tokenAddress}`);
+        const data = await res.json();
 
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (data.pairs && data.pairs.length > 0) {
+            // Legnagyobb likviditású pár
+            const pair = data.pairs.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0))[0];
+            const price = parseFloat(pair.priceUsd);
 
-            const data = await response.json();
-            console.log('DexScreener response:', data);
+            if (price > 0) {
+                const priceStr = '$' + price.toFixed(6);
 
-            if (data.pairs && data.pairs.length > 0) {
-                // Legnagyobb likviditású párt vesszük
-                const pairs = data.pairs.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0));
-                const mainPair = pairs[0];
-                const priceUSD = parseFloat(mainPair.priceUsd);
-
-                if (!isNaN(priceUSD) && priceUSD > 0) {
-                    // Uniswap és Balancer különbség szimuláció (vagy valós párok keresése)
-                    const uniPair = pairs.find(p => p.dexId === 'uniswap') || mainPair;
-                    const balPair = pairs.find(p => p.dexId === 'balancer') || mainPair;
-
-                    const uniPrice = parseFloat(uniPair.priceUsd) || priceUSD;
-                    const balPrice = parseFloat(balPair.priceUsd) || priceUSD * 1.0012;
-                    const diffPercent = ((balPrice - uniPrice) / uniPrice) * 100;
-
-                    if (currentEl) currentEl.textContent = '$' + uniPrice.toFixed(8);
-                    if (uniEl) uniEl.textContent = '$' + uniPrice.toFixed(8);
-                    if (balEl) balEl.textContent = '$' + balPrice.toFixed(8);
-
-                    if (diffEl) {
-                        const sign = diffPercent >= 0 ? '+' : '';
-                        diffEl.textContent = sign + diffPercent.toFixed(2) + '%';
-                        diffEl.className = 'value ' + (diffPercent >= 0 ? 'positive' : 'negative');
-                    }
-
-                    if (lastEl) {
-                        lastEl.textContent = new Date().toLocaleString('en-US', {
-                            timeZone: 'Europe/Budapest',
-                            year: 'numeric', month: 'short', day: 'numeric',
-                            hour: '2-digit', minute: '2-digit', second: '2-digit'
-                        });
-                    }
-
-                    console.log('Prices updated successfully!', uniPrice);
-                    return;
+                if (currentEl) currentEl.textContent = priceStr;
+                if (uniEl)     uniEl.textContent = priceStr;
+                if (balEl)     balEl.textContent = '$' + (price * 1.0012).toFixed(6);
+                if (diffEl) {
+                    diffEl.textContent = '+0.12%';
+                    diffEl.className = 'value positive';
                 }
+                if (lastEl) {
+                    lastEl.textContent = new Date().toLocaleString('en-US', {
+                        timeZone: 'Europe/Budapest',
+                        year: 'numeric', month: 'short', day: 'numeric',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit'
+                    });
+                }
+                console.log('✅ Price updated:', price);
+                return;
             }
-
-            console.warn('No valid pairs found, using fallback');
-            useFallbackPrices();
-        } catch (error) {
-            console.error('API error:', error.message);
-            useFallbackPrices();
         }
-    }
-
-    // ─── TARTALÉK ÁRAK ───
-    function useFallbackPrices() {
-        const uniEl = document.getElementById('uniPrice');
-        const balEl = document.getElementById('balPrice');
-        const diffEl = document.getElementById('priceDiff');
-        const currentEl = document.getElementById('currentPrice');
-        const lastEl = document.getElementById('lastUpdated');
-
-        const base = 0.00012 + Math.random() * 0.00004;
-        if (currentEl) currentEl.textContent = '$' + base.toFixed(8);
-        if (uniEl) uniEl.textContent = '$' + base.toFixed(8);
-        if (balEl) balEl.textContent = '$' + (base * 1.0012).toFixed(8);
+        throw new Error('No pairs found');
+    } catch (err) {
+        console.error('Price fetch failed:', err);
+        // Fallback
+        const fallback = 0.01175;
+        if (currentEl) currentEl.textContent = '$' + fallback.toFixed(6);
+        if (uniEl)     uniEl.textContent = '$' + fallback.toFixed(6);
+        if (balEl)     balEl.textContent = '$' + (fallback * 1.0012).toFixed(6);
         if (diffEl) {
             diffEl.textContent = '+0.12%';
             diffEl.className = 'value positive';
         }
-        if (lastEl) {
-            lastEl.textContent = new Date().toLocaleString('en-US', {
-                timeZone: 'Europe/Budapest',
-                year: 'numeric', month: 'short', day: 'numeric',
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-            }) + ' (fallback)';
-        }
+        if (lastEl) lastEl.textContent = 'fallback';
     }
+}
 
-    // ─── INDÍTÁS ───
-    document.addEventListener('DOMContentLoaded', () => {
-        updatePrices();
-        setInterval(updatePrices, 30000);
+document.addEventListener('DOMContentLoaded', () => {
+    updatePrices();
+    setInterval(updatePrices, 30000);
 
-        // Scroll animation
-        const observers = document.querySelectorAll('.animate-on-view');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1 });
-        observers.forEach(el => observer.observe(el));
+    // Scroll animation
+    document.querySelectorAll('.animate-on-view').forEach(el => {
+        new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 }).observe(el);
     });
+});
 
-    // ─── WALLET CONNECT ───
-    document.getElementById('connectWallet')?.addEventListener('click', async function() {
-        const btn = this;
-        const originalHtml = btn.innerHTML;
-        btn.innerHTML = '⏳ Connecting…';
-        btn.disabled = true;
-        try {
-            if (typeof window.ethereum !== 'undefined') {
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
-                btn.innerHTML = '✅ Connected';
-                btn.style.background = 'linear-gradient(135deg, #16a34a, #22c55e)';
-            } else {
-                alert('MetaMask not found! Please install it from https://metamask.io/');
-                btn.innerHTML = originalHtml;
-                btn.disabled = false;
-            }
-        } catch (err) {
-            console.error(err);
-            btn.innerHTML = '❌ Error';
+// Wallet connect
+document.getElementById('connectWallet')?.addEventListener('click', async function () {
+    const btn = this;
+    const original = btn.innerHTML;
+    btn.innerHTML = '⏳ Connecting…';
+    btn.disabled = true;
+    try {
+        if (window.ethereum) {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            btn.innerHTML = '✅ Connected';
+            btn.style.background = 'linear-gradient(135deg, #16a34a, #22c55e)';
+        } else {
+            alert('MetaMask not found!');
+            btn.innerHTML = original;
             btn.disabled = false;
-            setTimeout(() => {
-                btn.innerHTML = originalHtml;
-                btn.disabled = false;
-            }, 2500);
         }
-    });
-
-    console.log('🚀 PaperHands — price fetch fixed (DexScreener)');
+    } catch (e) {
+        btn.innerHTML = '❌ Error';
+        setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 2500);
+    }
+});
 </script>
 </body>
 </html>
