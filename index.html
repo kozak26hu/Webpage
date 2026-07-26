@@ -712,10 +712,75 @@
             .welcome-section {
                 padding: 1rem;
             }
-            .ticker-wrapper {
+                        .ticker-wrapper {
                 padding: 1rem;
             }
         }
+
+        /* ========== IDE ILLSZD BE A KABALA + LOGO STÍLUSOKAT ========== */
+        .logo-left {
+            position: absolute;
+            top: 1.8rem;
+            left: 1.8rem;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+            z-index: 10;
+        }
+
+        .mascot-img {
+            position: absolute;
+            right: 4%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 340px;
+            max-width: 38vw;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            z-index: 2;
+            transition: transform 0.4s ease;
+        }
+
+        .mascot-img:hover {
+            transform: translateY(-50%) scale(1.03);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 620px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .logo-left {
+                top: 1.2rem;
+                left: 1.2rem;
+                width: 52px;
+                height: 52px;
+            }
+
+            .mascot-img {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 260px;
+                max-width: 80%;
+                margin: 1.5rem auto 0;
+                display: block;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+        }
+        /* ========== IDÁIG ========== */
+
     </style>
 </head>
 <body>
@@ -739,17 +804,21 @@
 
     <!-- ═══ HERO ═══ -->
     <header class="hero" id="home">
-        <div>
-            <img src="logo.png" alt="PaperHands Logo" class="logo-img" onerror="this.style.display='none'">
-            <div class="badge-top">
-                <span class="dot"></span>
-                Ethereum Mainnet · Live
-            </div>
-            <h1>PaperHands</h1>
-            <p class="subtitle">
-                The Weak Hands Revolution — ERC‑20 on Ethereum.
-                Trade, stake, and build the future of community liquidity.
-            </p>
+    <!-- Logo bal oldalon -->
+    <img src="logo.png" alt="PaperHands Logo" class="logo-left" onerror="this.style.display='none'">
+
+    <div class="hero-content">
+        <div class="badge-top">
+            <span class="dot"></span>
+            Ethereum Mainnet · Live
+        </div>
+        <!-- Kabala a jobb oldalon -->
+        <img src="chaser_cartoon_good_2.png" alt="PaperHands Mascot" class="mascot-img">
+        <h1>PaperHands</h1>
+        <p class="subtitle">
+            The Weak Hands Revolution — ERC‑20 on Ethereum.
+            Trade, stake, and build the future of community liquidity.
+        </p>
 
             <!-- WELCOME -->
             <div class="welcome-section">
