@@ -950,7 +950,8 @@
 
             try {
                 // Lekérés a CoinGecko Ethereum token árfolyam API-ról
-                const response = await fetch(`https://coingecko.com{tokenAddress}&vs_currencies=usd&include_24hr_change=true`);
+                // JAVÍTOTT API HÍVÁS
+                const response = await fetch(`https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${tokenAddress}&vs_currencies=usd&include_24hr_change=true`);
                 const data = await response.json();
                 
                 if (data[tokenAddress.toLowerCase()]) {
