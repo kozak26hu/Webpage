@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com data:;
+        connect-src 'self' https://api.dexscreener.com https://eth.llamarpc.com ws://localhost:8080;
+        img-src 'self' https://i.ibb.co data: blob:;
+        object-src 'self';
+    ">
+    <title>Referral Program — PaperHands (PHANDS)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #060b18;
+            color: #eef2f8;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #060b18; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #2563eb, #7c3aed);
+            border-radius: 3px;
+        }
+
+        /* Background */
+        .bg-canvas {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: #060b18;
+        }
+        .bg-canvas .grid {
+            position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .bg-canvas .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.25;
+        }
+        .bg-canvas .orb:nth-child(2) {
+            width: 400px; height: 400px; top: -100px; right: -100px;
+            background: radial-gradient(circle, #3b82f6, transparent 70%);
+        }
+        .bg-canvas .orb:nth-child(3) {
+            width: 300px; height: 300px; bottom: 0; left: -50px;
+            background: radial-gradient(circle, #7c3aed, transparent 70%);
+        }
+
+        /* Nav */
+        .navbar {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(6,11,24,0.75); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            padding: 0.8rem 1.5rem;
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+            gap: 1.2rem 2rem;
+        }
+        .navbar a {
+            color: #94a3b8; text-decoration: none; font-size: 0.8rem; font-weight: 500;
+            transition: color 0.2s; position: relative;
+        }
+        .navbar a:hover { color: #60a5fa; }
+
+        /* Content */
+        .page {
+            position: relative; z-index: 1;
+            max-width: 780px; margin: 0 auto;
+            padding: 4rem 1.5rem 6rem;
+        }
+        .page .badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.2);
+            padding: 0.35rem 1rem; border-radius: 100px;
+            font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.1em; color: #60a5fa; margin-bottom: 1.5rem;
+        }
+        .page h1 {
+            font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;
+            letter-spacing: -0.02em; line-height: 1.15;
+            background: linear-gradient(135deg, #f0f4ff, #94a3b8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 1rem;
+        }
+        .page .intro {
+            color: #94a3b8; font-size: 1.05rem; margin-bottom: 3rem;
+            padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .block {
+            margin-bottom: 2.5rem;
+        }
+        .block h2 {
+            font-size: 1.25rem; font-weight: 700; color: #eef2f8;
+            margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+        }
+        .block h2 span {
+            font-size: 1.4rem;
+        }
+        .block p, .block li {
+            color: #94a3b8; font-size: 0.98rem; line-height: 1.75;
+        }
+        .block ul {
+            margin: 0.75rem 0 0 1.2rem;
+        }
+        .block li { margin-bottom: 0.4rem; }
+
+        .highlight {
+            background: rgba(59,130,246,0.08);
+            border: 1px solid rgba(59,130,246,0.15);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            color: #93c5fd;
+            font-size: 0.95rem;
+        }
+
+        .cta {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            margin-top: 1rem; padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff; font-weight: 600; font-size: 0.9rem;
+            border-radius: 60px; text-decoration: none;
+            transition: all 0.3s;
+        }
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59,130,246,0.4);
+        }
+
+        .footer {
+            position: relative; z-index: 1;
+            text-align: center; padding: 2.5rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            color: #64748b; font-size: 0.85rem;
+        }
+        .footer a { color: #94a3b8; text-decoration: none; margin: 0 0.8rem; }
+        .footer a:hover { color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <div class="bg-canvas">
+        <div class="grid"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="index.html#milestones">Milestones</a>
+        <a href="index.html#roadmap">Roadmap</a>
+        <a href="referral.html">Referral</a>
+        <a href="whitepaper.pdf" target="_blank">Whitepaper</a>
+    </nav>
+
+    <div class="page">
+        <div class="badge">🎯 Early-Bird Program</div>
+        <h1>Referral Program</h1>
+        <p class="intro">
+            This is separate from the standing 5% token-level swap referral described in the whitepaper (Section 4.2).
+            This program is specifically about growing pool liquidity during our current community funding round.
+        </p>
+
+        <div class="block">
+            <h2><span>✅</span> What qualifies</h2>
+            <p>
+                You refer someone new, and they stake LP tokens (PHANDS/WETH) in our staking contract for the full
+                <strong>90-day LP lock</strong> period. Only LP staking counts — not the 30-day PHAND stake —
+                because LP staking directly deepens our Uniswap pool.
+            </p>
+        </div>
+
+        <div class="block">
+            <h2><span>💰</span> What you get</h2>
+            <p>
+                A one-time reward equal to <strong>5% of the referred person's LP stake value</strong>, calculated
+                on a maximum of <strong>$200</strong> of that stake — so the maximum reward per referral is around
+                <strong>$10 worth of PHAND</strong>, regardless of how much the referred person actually contributes.
+                This keeps the program fair and predictable for everyone.
+            </p>
+        </div>
+
+        <div class="block">
+            <h2><span>📊</span> Program-wide cap</h2>
+            <p>
+                This program has a fixed total budget of <strong>5,000 PHAND</strong>, paid out on a
+                first-come, first-served basis. Once that budget is exhausted, the program closes automatically —
+                regardless of how much time is left in the funding round.
+            </p>
+        </div>
+
+        <div class="block">
+            <h2><span>⚡</span> When you get paid</h2>
+            <p>
+                As soon as the referred person's <code>stakeLP</code> transaction is confirmed on-chain.
+                You don't need to wait 90 days — the lock itself is already enforced by the contract,
+                so we can pay the referral reward right away.
+            </p>
+        </div>
+
+        <div class="block">
+            <h2><span>🔍</span> How it's verified</h2>
+            <p>
+                The person you refer should set your wallet address as their referrer using the
+                <strong>"Set Referrer"</strong> field in our dApp (under the Stake tab) — this is recorded
+                permanently on-chain. Then message us on Telegram with both wallet addresses.
+                We verify the referral link and the LP stake on-chain via Etherscan before paying out.
+            </p>
+            <a href="https://phands-staking-dapp.vercel.app/" target="_blank" class="cta">
+                Open dApp → Set Referrer
+            </a>
+        </div>
+
+        <div class="block">
+            <h2><span>⏳</span> Time limit</h2>
+            <p>
+                This 5% early-bird rate is valid through the end of our current community funding round
+                (see our Juicebox campaign). Terms for future rounds may differ and will be published here.
+            </p>
+        </div>
+
+        <div class="block">
+            <h2><span>🚫</span> Why we don't pay for promotion upfront</h2>
+            <p>
+                We get asked regularly to pay for "promotion" or "marketing" with no way to verify results.
+                This program is our answer: no upfront payment, no empty promises — just a transparent,
+                fixed rate tied to something verifiable on-chain. If you can genuinely bring people who
+                lock liquidity, this is how we compensate that.
+            </p>
+        </div>
+
+        <div class="block">
+            <h2><span>🛡️</span> A note on abuse</h2>
+            <p>
+                Because the reward is a percentage of real, locked capital, farming this with multiple wallets
+                means locking real money in each one for 90 days — a cost that generally outweighs the reward.
+                We also reserve the right to review the funding source behind suspicious clusters of referrals
+                and withhold payment where abuse is evident.
+            </p>
+        </div>
+
+        <div class="highlight">
+            Ready to refer someone? Have them set your wallet as referrer in the dApp, then message us on
+            <a href="https://t.me/phandsannouncement" target="_blank" style="color:#60a5fa;">Telegram</a>
+            with both addresses.
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 PaperHands (PHANDS)</p>
+        <div style="margin-top:0.8rem;">
+            <a href="index.html">Home</a>
+            <a href="https://t.me/phandsannouncement" target="_blank">Telegram</a>
+            <a href="https://x.com/OfficialPHANDS" target="_blank">X</a>
+        </div>
+    </footer>
+</body>
+</html>
