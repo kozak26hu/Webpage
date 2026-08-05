@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://googletagmanager.com"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JPQCZRQW9V');
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+    script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://googletagmanager.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     font-src 'self' https://fonts.gstatic.com data:;
-    connect-src 'self' https://api.dexscreener.com https://eth.llamarpc.com ws://localhost:8080;
-    img-src 'self' https://i.ibb.co data: blob:;
+    connect-src 'self' https://api.dexscreener.com https://eth.llamarpc.com ws://localhost:8080 https://*.google-analytics.com;
+    img-src 'self' https://i.ibb.co data: blob: https://*.google-analytics.com https://googletagmanager.com;
     object-src 'self';
 ">
     <title>PaperHands (PHANDS) — Official Website</title>
